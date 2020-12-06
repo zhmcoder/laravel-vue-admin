@@ -1,0 +1,12 @@
+<table-grid
+    :key_name='@json($keyName)'
+    :default_sort='@json($defaultSort)'
+    :column_attributes='@json($columnAttributes)'
+    :attributes='@json($attributes)'
+    :data_url='@json($dataUrl)'
+    :page_sizes='@json($pageSizes)'
+    :per_page='@json($perPage)'
+    :page_background='@json($pageBackground)'
+    :routers='@json($routers)'
+    :actions='@json($actions)'
+></table-grid>

@@ -1,0 +1,45 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Support\ServiceProvider;
+use SmallRuralDog\Admin\Admin;
+
+class ExtendServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+
+        Admin::script('{{ component }}', __DIR__.'/../dist/js/extend.js');
+        Admin::style('{{ component }}', __DIR__.'/../dist/css/extend.css');
+
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerRouter(); //
+    }
+    /**
+     * 注册路由
+     *
+     * @author osi
+     */
+    private function registerRouter()
+    {
+        if (strpos($this->app->version(), 'Lumen') === false && !$this->app->routesAreCached()) {
+            app('router')->namespace('{{ namespace }}\Controllers')->group(__DIR__ . '/../routes/route.php');
+        } else {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
+        }
+    }
+}
