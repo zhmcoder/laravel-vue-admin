@@ -4,12 +4,12 @@
       <el-aside
         ref="contentSide"
         class="content-side"
-        :class="{ 'content-side-fixed': fixedSide, 'side-dark': isDark }"
+        :class="{ 'content-side-fixed': fixedSide, 'side-dark': !isDark }"
         :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
           <template v-if="pageData.logoShow">
-            <template v-if="isDark">
+            <template v-if="!isDark">
               <template v-if="pageData.logoLight">
                 <img v-if="isCollapsed" :src="pageData.logoMiniLight" />
                 <img v-else :src="pageData.logoLight" />
@@ -36,8 +36,8 @@
           <el-menu
             :default-active="route"
             :collapse="isCollapsed"
-            :background-color="isDark ? '#1d1e23' : ''"
-            :text-color="isDark ? '#ffffff' : ''"
+            :background-color="!isDark ? '#1d1e23' : ''"
+            :text-color="!isDark ? '#ffffff' : ''"
             :collapse-transition="false"
             :unique-opened="pageData.uniqueOpened"
             :router="true"
@@ -83,7 +83,7 @@
           :style="{ padding: 0 }"
           class="layout-header-bar"
           :class="{
-            'layout-header-bar-dark': isDarkHeader,
+            'layout-header-bar-dark': !isDarkHeader,
             'layout-header-bar-fixed': fixedHeader,
             'layout-header-bar-fixed-collapsed': isCollapsed,
           }"
@@ -176,22 +176,22 @@
       <div style="padding:0 10px;">
         <el-divider>主题风格</el-divider>
         <div>
-          <el-badge type="success" is-dot :hidden="isDark">
+          <el-badge type="success" is-dot :hidden="!isDark">
             <div>
               <el-tooltip content="亮色菜单风格" placement="top">
                 <img
-                  @click="isDark = false"
+                  @click="isDark = true"
                   class="hover"
                   src="../assets/menu-light.svg"
                 />
               </el-tooltip>
             </div>
           </el-badge>
-          <el-badge type="success" is-dot :hidden="!isDark">
+          <el-badge type="success" is-dot :hidden="isDark">
             <div class="ml-20">
               <el-tooltip content="暗色菜单风格" placement="top">
                 <img
-                  @click="isDark = true"
+                  @click="isDark = false"
                   class="hover"
                   src="../assets/menu-dark.svg"
                 />
@@ -200,15 +200,15 @@
           </el-badge>
         </div>
         <div class="mt-30">
-          <el-badge type="success" is-dot :hidden="isDarkHeader">
-            <div @click="isDarkHeader = false">
+          <el-badge type="success" is-dot :hidden="!isDarkHeader">
+            <div @click="isDarkHeader = true">
               <el-tooltip content="亮色顶栏风格" placement="top">
                 <img class="hover" src="../assets/nav-light.svg" />
               </el-tooltip>
             </div>
           </el-badge>
-          <el-badge type="success" is-dot :hidden="!isDarkHeader">
-            <div class="ml-20" @click="isDarkHeader = true">
+          <el-badge type="success" is-dot :hidden="isDarkHeader">
+            <div class="ml-20" @click="isDarkHeader = false">
               <el-tooltip content="暗色顶栏风格" placement="top">
                 <img class="hover" src="../assets/nav-dark.svg" />
               </el-tooltip>
