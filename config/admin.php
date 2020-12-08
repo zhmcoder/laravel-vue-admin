@@ -41,7 +41,7 @@ return [
     'unique_opened' => false,
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
-        'domain' => null,
+        'domain' => env('ADMIN_DOMAIN', ''),
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
         'api_prefix' => env('ADMIN_ROUTE_PREFIX', 'admin-api'),
         'namespace' => 'App\\Admin\\Controllers',
