@@ -36,7 +36,9 @@ class Upload extends Component
 
     public function __construct($value = null)
     {
-        $this->action = route('admin.handle-upload-image');
+        ##deep admin start
+        $this->action = route(config('admin.upload.image_handle_router', 'admin.handle-upload-image'));
+        ##deep admin end
         $this->host = Storage::disk(config('admin.upload.disk'))->url('/');
         $this->componentValue($value);
     }
@@ -197,7 +199,9 @@ class Upload extends Component
     public function file()
     {
         $this->type = "file";
-        $this->action = route('admin.handle-upload-file');
+        ##deep admin start
+        $this->action = route(config('admin.upload.file_handle_router', 'admin.handle-upload-file'));
+        ##deep admin end
         return $this;
     }
 

@@ -86,6 +86,8 @@ return [
         ],
         //文件上传类型
         'mimes' => 'jpeg,bmp,png,gif,jpg,mp3,mp4,mpga,apk',
+        'image_handle_router' => null,
+        'file_handle_router' => null
     ],
     'database' => [
         // Database connection for following tables.
