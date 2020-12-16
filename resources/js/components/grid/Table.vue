@@ -353,12 +353,18 @@ export default {
     },
     //表单过滤提交
     onFilterSubmit() {
+      // deep admin start
+      this.page = 1;
+      // deep admin end
       this.getData();
     },
     //表单还原
     onFilterReset() {
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
       this.quickSearch = null;
+      // deep admin start
+      this.page = 1;
+      // deep admin end
       this.getData();
     },
     //获取数据
