@@ -27,7 +27,12 @@ class EditAction extends BaseRowAction
         $this->isDialog = $isDialog;
         return $this;
     }
-
+    ##deep admin start
+    public function content($content){
+        $this->content = $content;
+        return $this;
+    }
+    ##deep admin end
 
 
 }
