@@ -92,7 +92,10 @@ export default {
       }
       switch (this.attrs.handler) {
         case "route":
-          this.$router.push(this.attrs.uri);
+          // deep-admin start
+          let version = new Date().getTime();
+          // deep-admin end
+          this.$router.push(this.attrs.uri + "&version=" + version);
           break;
         case "link":
           window.location.href = this.attrs.uri;
