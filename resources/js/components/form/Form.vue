@@ -116,7 +116,9 @@
                 :attrs="component"
               />
             </div>
-            <div class="flex">
+            <!--deep admin start-->
+            <div class="flex custom_style">
+            <!--deep admin end-->
               <component
                 v-for="(component, index) in attrs.actions.addRightActions"
                 :key="component.componentName + index"
@@ -321,6 +323,11 @@ export default {
     align-items: center;
     justify-content: space-between;
   }
+    //deep admin start
+    .custom_style {
+        padding-right: 100px;
+    }
+    //deep admin end
   .admin-affix {
     .form-bottom-actions {
       padding: 6px;
