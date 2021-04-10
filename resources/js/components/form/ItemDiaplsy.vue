@@ -87,7 +87,13 @@ export default {
                           for(let i=0;i<length;i++){
                               form_item['component']['options'].splice(0,1);
                           }
-                          this.$emit("onClearValue");
+                          this.formData.select_related = '';
+                          if(form_item['component']['relatedComponents']!=null&&
+                              form_item['component']['relatedComponents'].length>0 ){
+                              form_item['component']['relatedComponents'].forEach(item=>{
+                                  this.formData[item]='';
+                              })
+                          }
                           form_item['component']['options'].push(...data);
                           form_item['component'].paginate=0;
                       }

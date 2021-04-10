@@ -74,21 +74,10 @@ export default {
   mounted() {
     this.setLable();
   },
-    //deep admin start
-    watch:{
-      options:function(options){
-          console.log(this.value);
-          if(this.value!=null){
-              console.log('options change');
-              console.log(options);
-              this.value='';
-          }
-
-      }
-    },
-    //deep admin end
   methods: {
     onChange(value) {
+        console.log(this.formItems);
+        console.log(this.formItem);
       let resValue = value;
       if (typeof value === "object") {
         // 排除value = 0
@@ -99,7 +88,20 @@ export default {
       this.$emit("change", resValue);
       //deep admin start
       this.$emit("changeRelation", this.attrs,resValue);
-      //deep admin end
+      let optionData = null;
+      this.options.forEach(item=>{
+            if(item.value == value){
+                optionData = item;
+            }
+        })
+        if(this.formItem['component']['relatedComponents']!=null&&
+            this.formItem['component']['relatedComponents'].length>0 ){
+            this.formItem['component']['relatedComponents'].forEach(item=>{
+                console.log(item);
+                this.formData[item]=optionData[item];
+            })
+        }
+        //deep admin end
     },
     remoteMethod(query, next = null) {
       if (!next) {
