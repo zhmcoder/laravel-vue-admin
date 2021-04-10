@@ -87,7 +87,8 @@ export default {
                           for(let i=0;i<length;i++){
                               form_item['component']['options'].splice(0,1);
                           }
-                          this.formData.select_related = '';
+                          console.log(form_item.prop);
+                          this.formData[form_item.prop] = '';
                           if(form_item['component']['relatedComponents']!=null&&
                               form_item['component']['relatedComponents'].length>0 ){
                               form_item['component']['relatedComponents'].forEach(item=>{
