@@ -20,6 +20,7 @@
         :form-items="formItems"
         :form-item="formItem"
         @change="onChange"
+        @changeRelation="onChangeRelation"
       />
       <component
         v-if="formItem.componentRightComponent"
@@ -62,6 +63,38 @@ export default {
     },
   },
   methods: {
+      <!-- deep admin start-->
+      onChangeRelation(attrs,resValue){
+          console.log('onChangeRelation');
+          if(attrs['isRelatedSelect'] == true){
+              let form_item = null;
+              this.formItems.forEach(item=>{
+                  if(item.prop==attrs['relatedSelectRef']){
+                      form_item = item;
+                      return;
+                  }
+              })
+              this.$http
+                  .get(form_item['component']['remoteUrl'], {
+                      params: {
+                          [form_item.prop]:resValue
+                      }
+                  })
+                  .then(res => {
+                      const data = res.data.data || res.data;
+                      if (data.length) {
+                          let length = form_item['component']['options'].length;
+                          for(let i=0;i<length;i++){
+                              form_item['component']['options'].splice(0,1);
+                          }
+                          this.$emit("onClearValue");
+                          form_item['component']['options'].push(...data);
+                          form_item['component'].paginate=0;
+                      }
+                  });
+          }
+      },
+      <!-- deep admin end-->
     onChange(value) {
       this.$emit("change", value);
 

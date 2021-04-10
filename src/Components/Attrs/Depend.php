@@ -8,6 +8,11 @@ trait Depend
     protected $paginate = 0;
     protected $extUrlParams;
     protected $label;
+    //deep admin start
+    protected $relatedComponents;
+    protected $isRelatedSelect;
+    protected $relatedSelectRef;
+    //deep admin end
 
     /**
      * @param mixed $depend
@@ -49,4 +54,36 @@ trait Depend
         $form->item($label['key'])->vif('label' . mt_rand(10000, 99999), false);
         return $this;
     }
+    //deep admin start
+
+    /**
+     * @param mixed $relatedSelectRef
+     * @return $this
+     */
+    public function relatedSelectRef($relatedSelectRef)
+    {
+        $this->relatedSelectRef = $relatedSelectRef;
+        return $this;
+    }
+
+    /**
+     * @param mixed $relatedComponents
+     * @return $this
+     */
+    public function relatedComponents($relatedComponents)
+    {
+        $this->relatedComponents = $relatedComponents;
+        return $this;
+    }
+
+    /**
+     * @param boolean $isRelatedSelect true or false
+     * @return $this
+     */
+    public function isRelatedSelect($isRelatedSelect)
+    {
+        $this->isRelatedSelect = $isRelatedSelect;
+        return $this;
+    }
+    //deep admin end
 }
