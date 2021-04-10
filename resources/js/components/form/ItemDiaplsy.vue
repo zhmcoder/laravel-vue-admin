@@ -63,9 +63,9 @@ export default {
     },
   },
   methods: {
-      <!-- deep admin start-->
+      //deep admin start
       onChangeRelation(attrs,resValue){
-          console.log('onChangeRelation');
+          console.log('onChangeRelation '+attrs['isRelatedSelect']);
           if(attrs['isRelatedSelect'] == true){
               let form_item = null;
               this.formItems.forEach(item=>{
@@ -94,7 +94,7 @@ export default {
                   });
           }
       },
-      <!-- deep admin end-->
+      //deep admin end
     onChange(value) {
       this.$emit("change", value);
 

@@ -74,18 +74,19 @@ export default {
   mounted() {
     this.setLable();
   },
-    <!-- deep admin start-->
+    //deep admin start
     watch:{
       options:function(options){
           console.log(this.value);
-          // console.log(this.$data.vm='');
-          this.$data.vm=''
-          this.value=null;
-          console.log('options change');
-          console.log(options);
+          if(this.value!=null){
+              console.log('options change');
+              console.log(options);
+              this.value='';
+          }
+
       }
     },
-    <!-- deep admin end-->
+    //deep admin end
   methods: {
     onChange(value) {
       let resValue = value;
@@ -96,9 +97,9 @@ export default {
         resValue = null;
       }
       this.$emit("change", resValue);
-        <!-- deep admin start-->
+      //deep admin start
       this.$emit("changeRelation", this.attrs,resValue);
-        <!-- deep admin end-->
+      //deep admin end
     },
     remoteMethod(query, next = null) {
       if (!next) {
