@@ -86,7 +86,9 @@
               :key="component.componentName + index"
               :is="component.componentName"
               :attrs="component"
+              :filterData="filterFormData"
             />
+              <!-- deep-admin filterData -->
             <el-divider
               direction="vertical"
               v-if="!attrs.attributes.hideCreateButton"

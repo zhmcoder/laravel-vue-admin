@@ -10,9 +10,13 @@ use SmallRuralDog\Admin\Components\Attrs\Button;
 class ToolButton extends BaseAction
 {
     use Button;
+
     protected $uri;
     protected $componentName = "ToolButton";
     protected $handler;
+    // deep-admin start
+    protected $isFilterFormData;
+    // deep-admin end
 
     public function __construct($content)
     {
@@ -47,6 +51,13 @@ class ToolButton extends BaseAction
         $this->handler = $handler;
         return $this;
     }
+    // deep-admin start
+    public function isFilterFormData($isFilterFormData)
+    {
+        $this->isFilterFormData = $isFilterFormData;
+        return $this;
+    }
+    // deep-admin end
 
 
 }

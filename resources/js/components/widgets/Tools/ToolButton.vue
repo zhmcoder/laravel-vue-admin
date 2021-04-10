@@ -69,6 +69,9 @@
 export default {
   props: {
     attrs: Object,
+      // deep-admin start
+    filterData:Object
+      // deep-admin end
   },
   data() {
     return {
@@ -90,6 +93,12 @@ export default {
         this.dialogTableVisible = true;
         return;
       }
+        // deep-admin start
+      let params = null;
+      if(this.attrs.isFilterFormData == true){
+          params = Object.assign(this.filterData, this.attrs.params);;
+      }
+        // deep-admin end
       switch (this.attrs.handler) {
         case "route":
           // deep-admin start
@@ -101,25 +110,31 @@ export default {
           window.location.href = this.attrs.uri;
           break;
         case "request":
-          this.onRequest(this.attrs.uri);
+            // deep-admin start
+          this.onRequest(this.attrs.uri,this.attrs.requestMethod,params);
+            // deep-admin end
           break;
         default:
           this.$message.warning("响应类型未定义");
           break;
       }
     },
-    onRequest(uri) {
-      this.loading = true;
-      this.$http
-        .get(uri)
+      // deep-admin start
+    onRequest(uri,requestMethod,params) {
+        this.loading = true;
+        this.$http[requestMethod](uri, {
+            params: params
+        })
         .then((res) => {
-          if (res.code == 200) {
-          }
+            if (res.code == 200) {
+            }
         })
         .finally(() => {
-          this.loading = false;
+            this.loading = false;
         });
+
     },
+      // deep-admin end
   },
 };
 </script>
