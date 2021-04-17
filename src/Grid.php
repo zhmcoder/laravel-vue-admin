@@ -16,6 +16,7 @@ use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
 use SmallRuralDog\Admin\Grid\Concerns\HasFilter;
 use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
+use SmallRuralDog\Admin\Grid\Concerns\HasQuickFilter;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
 use SmallRuralDog\Admin\Grid\Filter;
 use SmallRuralDog\Admin\Grid\Model;
@@ -26,8 +27,8 @@ use SmallRuralDog\Admin\Layout\Content;
 
 class Grid extends Component
 {
-    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter;
-
+    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter, HasQuickFilter;
+    //<!--deep admin-->
     /**
      * 组件名称
      * @var string
@@ -264,7 +265,9 @@ class Grid extends Component
     {
         //快捷搜索
         $this->applyQuickSearch();
-
+        //<!--deep admin start-->
+        $this->applyQuickFilter();
+        //<!--deep admin end-->
         $this->applyFilter(false);
 
     }
@@ -438,6 +441,9 @@ class Grid extends Component
             $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['batchActions'] = $this->batchActions->builderActions();
             $viewData['quickSearch'] = $this->quickSearch;
+            //<!--deep admin start-->
+            $viewData['quickFilter'] = $this->quickFilter;
+            //<!--deep admin end-->
             $viewData['filter'] = $this->filter->buildFilter();
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;

@@ -78,6 +78,28 @@
                 :is="component.componentName"
                 :attrs="component"
               />
+
+                <el-radio-group
+                    v-if="attrs.quickFilter"
+                    v-model="quickFilter"
+                    :style="attrs.quickFilter.style"
+                    :class="attrs.quickFilter.className"
+                    :disabled="attrs.quickFilter.disabled"
+                    @change="getData"
+                >
+                    <el-radio-button
+                        v-if="attrs.quickFilter"
+                        v-for="(radio, index) in attrs.quickFilter.options"
+                        :style="radio.style"
+                        :class="radio.className"
+                        :key="index"
+                        :label="radio.label"
+                        :disabled="radio.disabled"
+                        :border="radio.border"
+                        :size="radio.size"
+                    >{{ radio.title }}</el-radio-button>
+                </el-radio-group>
+
             </div>
           </div>
           <div class="grid-top-container-right">
@@ -277,6 +299,7 @@ export default {
       },
       page: 1, //当前页
       quickSearch: null, //快捷搜索内容
+      quickFilter: null, //快捷筛选内容 <!--deep admin-->
       selectionRows: [], //已选择的row
       filterFormData: null, //表单搜索数据
       tabsSelectdata: {},
@@ -307,6 +330,11 @@ export default {
       this.quickSearch = this._.cloneDeep(
         this.$store.getters.thisPage.grids.quickSearch
       );
+      //deep admin start
+        this.quickFilter = this._.cloneDeep(
+            this.$store.getters.thisPage.grids.quickFilter
+        );
+       //deep admin end
 
       this.filterFormData = this._.cloneDeep(
         this.$store.getters.thisPage.grids.filterFormData
@@ -380,6 +408,7 @@ export default {
             per_page: this.pageData.pageSize,
             ...this.sort,
             ...this.q_search,
+            ...this.quick_filter, //deep admin
             ...this.filterFormData,
             ...this.tabsSelectdata,
             ...this.$route.query,
@@ -415,6 +444,12 @@ export default {
             key: "quickSearch",
             data: this.quickSearch,
           });
+            //deep admin start
+            this.$store.commit("setGridData", {
+                key: "quickFilter",
+                data: this.quickFilter,
+            });
+            //deep admin end
           this.$store.commit("setGridData", {
             key: "filterFormData",
             data: this.filterFormData,
@@ -578,6 +613,14 @@ export default {
         (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
     },
+    //deep admin start
+      quick_filter() {
+          const quick_filter = new Object();
+          this.attrs.quickFilter &&
+          (quick_filter[this.attrs.quickFilter.filterKey] = this.quickFilter);
+          return quick_filter;
+      },
+     //deep admin end
     gridHeight() {
       if (this.attrs.attributes.height == "auto") {
         return (

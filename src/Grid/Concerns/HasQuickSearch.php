@@ -7,7 +7,7 @@ namespace SmallRuralDog\Admin\Grid\Concerns;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
-
+use Illuminate\Support\Str;
 /**
  * @method  Model model()
  */
