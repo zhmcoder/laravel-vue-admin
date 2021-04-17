@@ -70,7 +70,10 @@ export default {
   props: {
     attrs: Object,
       // deep-admin start
-    filterData:Object
+      //filterData:Object
+      filterData: {
+          type: [Object, Array]
+      }
       // deep-admin end
   },
   data() {
