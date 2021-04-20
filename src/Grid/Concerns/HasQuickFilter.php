@@ -52,6 +52,7 @@ trait HasQuickFilter
             $this->quickFilter = new QuickFilter();
         }
         $this->quickFilter->options = $options;
+        $this->quickFilter->value='';
         array_unshift($this->quickFilter->options,
             Radio::make('', '全部'));
         return $this;

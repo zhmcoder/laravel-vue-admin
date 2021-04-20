@@ -11,6 +11,7 @@ class QuickFilter implements JsonSerializable
 
     public $options;
     public $defaultValue;
+    public $value;
 
     /**
      * @inheritDoc
@@ -19,7 +20,7 @@ class QuickFilter implements JsonSerializable
     {
         return [
             'filterKey' => $this->filterKey,
-            'defaultValue'=>$this->defaultValue,
+            'value'=>$this->value,
             'options'=>$this->options
         ];
     }

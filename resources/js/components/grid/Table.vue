@@ -299,7 +299,7 @@ export default {
       },
       page: 1, //当前页
       quickSearch: null, //快捷搜索内容
-      quickFilter: null, //快捷筛选内容 <!--deep admin-->
+      quickFilter: '', //快捷筛选内容 <!--deep admin-->
       selectionRows: [], //已选择的row
       filterFormData: null, //表单搜索数据
       tabsSelectdata: {},
