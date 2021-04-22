@@ -110,7 +110,10 @@ export default {
           this.$router.push(this.attrs.uri + "&version=" + version);
           break;
         case "link":
-          window.location.href = this.attrs.uri;
+            // deep-admin start
+            // todo 参数传递需优化
+          window.location.href = this.attrs.uri + "?params=" + JSON.stringify(params);
+            // deep-admin end
           break;
         case "request":
             // deep-admin start
