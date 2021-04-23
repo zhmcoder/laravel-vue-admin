@@ -112,7 +112,13 @@ export default {
         case "link":
             // deep-admin start
             // todo 参数传递需优化
-          window.location.href = this.attrs.uri + "?params=" + JSON.stringify(params);
+            let path = this.attrs.uri.split('?');
+            if (path[1]) {
+                this.attrs.uri += "&params=" + JSON.stringify(params);
+            } else {
+                this.attrs.uri += "?params=" + JSON.stringify(params);
+            }
+            window.location.href = this.attrs.uri;
             // deep-admin end
           break;
         case "request":
