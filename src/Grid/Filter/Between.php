@@ -63,7 +63,7 @@ class Between extends AbstractFilter
         // deep-admin start
         if ($this->timestamp) {
             $this->value[0] = strtotime($this->value[0] . ' 00:00:00');
-            $this->value[1] = strtotime($this->value[1] . ' 59:59:59');
+            $this->value[1] = strtotime($this->value[1] . ' 23:59:59');
         }
         // deep-admin end
 
