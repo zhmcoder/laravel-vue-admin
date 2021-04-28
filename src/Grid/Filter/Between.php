@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 class Between extends AbstractFilter
 {
 
+    // deep-admin start
     protected $timestamp = false;
 
     public function datetime()
@@ -20,6 +21,7 @@ class Between extends AbstractFilter
         $this->timestamp = true;
         return $this;
     }
+    // deep-admin end
 
     /**
      * Get condition of this filter.
@@ -58,10 +60,12 @@ class Between extends AbstractFilter
 
         $this->query = 'whereBetween';
 
+        // deep-admin start
         if ($this->timestamp) {
             $this->value[0] = strtotime($this->value[0] . ' 00:00:00');
             $this->value[1] = strtotime($this->value[1] . ' 59:59:59');
         }
+        // deep-admin end
 
         return $this->buildCondition($this->column, $this->value);
     }
