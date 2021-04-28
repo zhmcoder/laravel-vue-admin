@@ -7,6 +7,19 @@ use Illuminate\Support\Arr;
 class Between extends AbstractFilter
 {
 
+    protected $timestamp = false;
+
+    public function datetime()
+    {
+        $this->timestamp = false;
+        return $this;
+    }
+
+    public function time()
+    {
+        $this->timestamp = true;
+        return $this;
+    }
 
     /**
      * Get condition of this filter.
@@ -44,6 +57,11 @@ class Between extends AbstractFilter
         }
 
         $this->query = 'whereBetween';
+
+        if ($this->timestamp) {
+            $this->value[0] = strtotime($this->value[0] . ' 00:00:00');
+            $this->value[1] = strtotime($this->value[1] . ' 59:59:59');
+        }
 
         return $this->buildCondition($this->column, $this->value);
     }
