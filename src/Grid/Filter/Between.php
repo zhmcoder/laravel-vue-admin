@@ -50,17 +50,17 @@ class Between extends AbstractFilter
             return;
         }
 
+        // deep-admin start
         if (!isset($value[0])) {
-            return $this->buildCondition($this->column, '<=', $value[0]);
+            return $this->buildCondition($this->column, '>=', $value[0] . ' 00:00:00');
         }
 
         if (!isset($value[1])) {
-            return $this->buildCondition($this->column, '>=', $value[1]);
+            return $this->buildCondition($this->column, '>=', $value[1] . ' 59:59:59');
         }
 
         $this->query = 'whereBetween';
 
-        // deep-admin start
         if ($this->timestamp) {
             $this->value[0] = strtotime($this->value[0] . ' 00:00:00');
             $this->value[1] = strtotime($this->value[1] . ' 59:59:59');
