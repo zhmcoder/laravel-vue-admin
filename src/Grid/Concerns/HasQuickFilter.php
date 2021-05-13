@@ -11,6 +11,7 @@ use SmallRuralDog\Admin\Grid\Tools\QuickFilter;
 use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
 
 //<!--deep admin start-->
+
 /**
  * @method  Model model()
  */
@@ -27,6 +28,7 @@ trait HasQuickFilter
     public function quickFilter()
     {
         $this->quickFilter = new QuickFilter();
+        $this->quickFilter->defaultValue='';
         return $this;
     }
 
@@ -52,20 +54,19 @@ trait HasQuickFilter
             $this->quickFilter = new QuickFilter();
         }
         $this->quickFilter->options = $options;
-        $this->quickFilter->value='';
         array_unshift($this->quickFilter->options,
             Radio::make('', '全部'));
         return $this;
     }
 
-//    public function defaultValue($defaultValue)
-//    {
-//        if ($this->quickFilter == null) {
-//            $this->quickFilter = new QuickFilter();
-//        }
-//        $this->quickFilter->defaultValue = $defaultValue;
-//        return $this;
-//    }
+    public function defaultValue($defaultValue)
+    {
+        if ($this->quickFilter == null) {
+            $this->quickFilter = new QuickFilter();
+        }
+        $this->quickFilter->defaultValue = $defaultValue;
+        return $this;
+    }
 
     /**
      * Apply the search query to the query.
@@ -80,7 +81,11 @@ trait HasQuickFilter
             return;
         }
         debug_log_info('quick filter query = ' . request()->get($this->quickFilter->filterKey));
-        if (!$query = request()->get($this->quickFilter->filterKey)) {
+        $query = request()->get($this->quickFilter->filterKey);
+        if ($query === 'NULL') {
+            $query = null;
+        }
+        if ($query == '' || $query == null) {
             return;
         }
         $this->addWhereBasicBinding($this->quickFilter->filterKey, false, '=', $query);

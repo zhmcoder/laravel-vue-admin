@@ -312,7 +312,11 @@ export default {
     //初始化默认设置值
     this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
     this.sort = this._.cloneDeep(this.attrs.defaultSort);
-
+    //deep admin start
+      this.quickFilter = this._.cloneDeep(
+          this.attrs.quickFilter.defaultValue
+      );
+      //deep admin end
     //初始化vuex状态值
     if (this.$store.getters.thisPage.grids.page) {
       this.page = this._.cloneDeep(this.$store.getters.thisPage.grids.page);
@@ -330,11 +334,6 @@ export default {
       this.quickSearch = this._.cloneDeep(
         this.$store.getters.thisPage.grids.quickSearch
       );
-      //deep admin start
-        this.quickFilter = this._.cloneDeep(
-            this.$store.getters.thisPage.grids.quickFilter
-        );
-       //deep admin end
 
       this.filterFormData = this._.cloneDeep(
         this.$store.getters.thisPage.grids.filterFormData
