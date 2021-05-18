@@ -79,8 +79,7 @@ export default {
   },
   methods: {
     onChange(value) {
-        console.log(this.formItems);
-        console.log(this.formItem);
+        console.log(value);
       let resValue = value;
       if (typeof value === "object") {
         // 排除value = 0
@@ -97,7 +96,8 @@ export default {
                 optionData = item;
             }
         })
-        if(this.formItem['component']['relatedComponents']!=null&&
+
+        if(this.formItem&&this.formItem['component']&&this.formItem['component']['relatedComponents']!=null&&
             this.formItem['component']['relatedComponents'].length>0 ){
             this.formItem['component']['relatedComponents'].forEach(item=>{
                 console.log(item);
