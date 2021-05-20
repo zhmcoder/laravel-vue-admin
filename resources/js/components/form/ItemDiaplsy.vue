@@ -65,7 +65,8 @@ export default {
   methods: {
       //deep admin start
       onChangeRelation(attrs,resValue){
-          console.log('onChangeRelation '+attrs['isRelatedSelect']);
+          console.log('onChangeRelation ');
+          console.log(attrs);
           if(attrs['isRelatedSelect'] == true){
               let form_item = null;
               this.formItems.forEach(item=>{
@@ -77,7 +78,7 @@ export default {
               this.$http
                   .get(form_item['component']['remoteUrl'], {
                       params: {
-                          [form_item.prop]:resValue
+                          [attrs.ref]:resValue
                       }
                   })
                   .then(res => {
