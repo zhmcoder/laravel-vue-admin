@@ -1,6 +1,6 @@
 <template>
     <div class="grid-container">
-        <el-card shadow="never" :body-style="{ padding: 0 }" v-loading="loading">
+        <el-card shadow="never" :body-style="{ padding: 0 }">
             <div class="bottom-border" ref="toolbarsView">
                 <div class="grid-top-container">
                     <div class="grid-top-container-left">
@@ -9,16 +9,15 @@
                         </div>
                     </div>
                     <div class="grid-top-container-right">
-                        <component
-                            v-for="(component, index) in attrs.filters"
-                            :value="value"
-                            :ref="component.ref"
-                            :key="component.componentName + index"
-                            :is="component.componentName"
-                            :attrs="component"
-                            @change="onChange"
-                            style="padding-left: 10px"
-                        />
+                        <el-select v-model="value" :placeholder="attrs.filter.placeholder"
+                                   @change="onChange" v-if="attrs.filter">
+                            <el-option
+                                v-for="item in attrs.filter.options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
                     </div>
                 </div>
             </div>
@@ -45,17 +44,17 @@
         },
         props: {
             attrs: Object,
-            value: {
-                default: 1,
-            },
         },
         data() {
             return {
-                value:this.value,
+                formData:null,
+                value: ''
             };
         },
-        mounted() {
 
+        mounted() {
+            this.formData = {date_time:null}
+            console.log(this.formData);
         },
         destroyed() {
 
@@ -67,13 +66,12 @@
                 console.log(this.$refs);
                 console.log(this.$refs.chart);
 
+
                 this.$http
                     .get(this.attrs.data_url, {
                         params: {
                             ...this.meta,
-                            query: this.query,
-                            depend: this.depend,
-                            extUrlParams: this.extUrlParams
+                            [this.attrs.filter.ref]:value
                         }
                     })
                     .then(res => {

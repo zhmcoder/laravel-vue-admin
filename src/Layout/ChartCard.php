@@ -11,14 +11,16 @@ class ChartCard extends Component
 
     protected $componentName = "ChartCard";
 
-    protected $title;
+    protected $title = '';
     protected $filters = [];
+    protected $filter = null;
     protected $chart;
     protected $data_url;
+    protected $depend;
 
     public function __construct()
     {
-        $this->title = "test test";
+
     }
 
 
@@ -33,9 +35,15 @@ class ChartCard extends Component
         return $this;
     }
 
-    public function addFilter(Select $select)
+//    public function addFilter(Select $select)
+//    {
+//        $this->filters[] = $select;
+//        return $this;
+//    }
+
+    public function filter(Select $select)
     {
-        $this->filters[] = $select;
+        $this->filter = $select;
         return $this;
     }
 
