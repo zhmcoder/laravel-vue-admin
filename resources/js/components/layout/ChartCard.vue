@@ -10,7 +10,7 @@
                     </div>
                     <div class="grid-top-container-right">
                         <el-select v-model="value" :placeholder="attrs.filter.placeholder"
-                                   @change="onChange" v-if="attrs.filter">
+                                   @change="onChange" filterable v-if="attrs.filter">
                             <el-option
                                 v-for="item in attrs.filter.options"
                                 :key="item.value"
