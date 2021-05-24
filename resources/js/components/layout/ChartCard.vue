@@ -9,15 +9,17 @@
                         </div>
                     </div>
                     <div class="grid-top-container-right">
-                        <el-select v-model="value" :placeholder="attrs.filter.placeholder"
-                                   @change="onChange" filterable v-if="attrs.filter">
-                            <el-option
-                                v-for="item in attrs.filter.options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
+
+                        <component
+                            v-if="attrs.filters"
+                            v-for="(filter, index) in attrs.filters"
+                            :key="filter.componentName + index"
+                            v-model="attrs.filterData[filter.ref]"
+                            :is="filter.componentName"
+                            :attrs="filter"
+                            :form-data="attrs.filterData"
+                            @change="onChange"
+                        />
                     </div>
                 </div>
             </div>
@@ -63,15 +65,15 @@
             onChange(value){
                 console.log('card');
                 console.log(value);
-                console.log(this.$refs);
-                console.log(this.$refs.chart);
+                // console.log(this.$refs);
+                console.log(this.attrs.filterData);
 
 
                 this.$http
                     .get(this.attrs.data_url, {
                         params: {
                             ...this.meta,
-                            [this.attrs.filter.ref]:value
+                            ...this.attrs.filterData,
                         }
                     })
                     .then(res => {
