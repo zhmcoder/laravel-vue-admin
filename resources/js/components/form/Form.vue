@@ -249,8 +249,8 @@
                         this.attrs['formItems'].forEach(item => {
                             if (item['component'] && item['component']['isRelatedSelect']) {
                                 let select_related = item['component']['relatedSelectRef'];
-                                let select_related_value = data['select_related'];
-                                data['select_related'] = null;
+                                let select_related_value = data[select_related];
+                                data[select_related] = null;
                                 this.attrs['formItems'].forEach(select_item => {
                                     if (select_item['prop'] == select_related) {
                                         if (select_item['component'] && select_item['component']['remoteUrl']) {
