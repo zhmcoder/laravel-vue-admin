@@ -242,7 +242,7 @@
                         },
                     })
                     .then(({data}) => {
-
+                        let temp_data = JSON.parse(JSON.stringify(data));
                         //处理远程接口下拉
                         console.log('attrs');
                         console.log(this.attrs);
@@ -257,7 +257,7 @@
                                             this.$http
                                                 .get(select_item['component']['remoteUrl'], {
                                                     params: {
-                                                        [item.prop]: data[item.prop]
+                                                        [item.prop]: temp_data[item.prop]
                                                     }
                                                 })
                                                 .then(res => {
@@ -270,7 +270,7 @@
                                                     }
                                                     select_item['component']['options'].push(...select_data);
 
-                                                    this.formData[select_related] = select_related_value*1;
+                                                    data[select_related] = select_related_value*1;
                                                 });
                                         }
 
