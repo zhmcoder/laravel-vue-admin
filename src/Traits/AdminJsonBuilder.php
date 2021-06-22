@@ -7,7 +7,21 @@ namespace SmallRuralDog\Admin\Traits;
 class AdminJsonBuilder implements \JsonSerializable
 {
 
-    protected $hideAttrs = [];
+    protected $hideAttrs = ['is_filter_null'];
+
+    protected $is_filter_null = false;
+
+    public function is_filter_null($is_filter_null = false)
+    {
+        $this->is_filter_null = $is_filter_null;
+        return $this;
+    }
+
+    public function addHideAttrs($attrs)
+    {
+        $this->hideAttrs[] = $attrs;
+        return $this;
+    }
 
     public function jsonSerialize()
     {
@@ -15,7 +29,14 @@ class AdminJsonBuilder implements \JsonSerializable
         $hide = collect($this->hideAttrs)->push("hideAttrs")->toArray();
         foreach ($this as $key => $val) {
             if (!in_array($key, $hide)) {
-                $data[$key] = $val;
+                if ($this->is_filter_null) {
+                    if (!is_null($val)) {
+                        $data[$key] = $val;
+                    }
+                } else {
+                    $data[$key] = $val;
+                }
+
             }
         }
         return $data;
