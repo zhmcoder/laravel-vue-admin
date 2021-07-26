@@ -14,6 +14,9 @@ mix
   .extract(["axios", "vue", "vuex", "vue-router", "element-ui"])
   .setResourceRoot("/vendor/laravel-vue-admin")
   .setPublicPath("public")
+    //deep admin start
+    .copy("public", "../../../public/vendor/laravel-vue-admin")
+    //deep admin end
   .webpackConfig({
     resolve: {
       alias: {
