@@ -159,6 +159,7 @@
           :data="tableData"
           :row-key="attrs.attributes.rowKey"
           :height="gridHeight"
+          :show-summary="attrs.attributes.showSummary"
           :max-height="attrs.attributes.maxHeight"
           :default-sort="default_sort_get"
           :stripe="attrs.attributes.stripe"

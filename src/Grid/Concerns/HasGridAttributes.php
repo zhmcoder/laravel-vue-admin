@@ -265,4 +265,15 @@ trait HasGridAttributes
         return $this;
     }
 
+    /**
+     * 显示表格试问汇总计算
+     * @param $dataVuex
+     * @return $this
+     */
+    public function showSummary($showSummary = true)
+    {
+        $this->attributes->showSummary = $showSummary;
+        return $this;
+    }
+
 }
