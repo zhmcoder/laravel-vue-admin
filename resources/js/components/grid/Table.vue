@@ -368,6 +368,11 @@ export default {
       this.toolbarsViewHeight = this.$refs.toolbarsView.offsetHeight;
     });
   },
+	updated() {
+		this.$nextTick(() => {
+			this.$refs.table.doLayout()
+		})
+	},
   destroyed() {
     //取消监听
     try {
