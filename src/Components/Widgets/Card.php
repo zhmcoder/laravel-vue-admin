@@ -4,6 +4,7 @@ namespace SmallRuralDog\Admin\Components\Widgets;
 
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Layout\Content;
+use function Symfony\Component\Translation\t;
 
 class Card extends Component
 {
@@ -11,6 +12,7 @@ class Card extends Component
     protected $header;
     protected $bodyStyle;
     protected $shadow = "never";
+    protected $showHeader = true;
 
     protected $content;
 
@@ -61,6 +63,17 @@ class Card extends Component
     public function content($content)
     {
         $this->content = instance_content($content);
+        return $this;
+    }
+
+    /**
+     * 设置是否显示头部
+     * @param  $showHeader
+     * @return $this
+     */
+    public function showHeader($showHeader = true)
+    {
+        $this->showHeader = $showHeader;
         return $this;
     }
 
