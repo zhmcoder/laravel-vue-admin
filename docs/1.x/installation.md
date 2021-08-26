@@ -36,4 +36,4 @@ php artisan vendor:publish --provider="SmallRuralDog\Admin\AdminServiceProvider"
 ```shell script
 php artisan admin:install
 ```
-启动服务后，在浏览器打开 `http://localhost/admin/` ,使用用户名 `admin` 和密码 `admin`登陆.
+启动服务后，在浏览器打开 `http://localhost/admin/` ,使用用户名 `admin` 和密码 `admin`登录.

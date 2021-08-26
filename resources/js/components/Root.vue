@@ -133,7 +133,7 @@
                   <a @click="onLogout">
                     <el-dropdown-item>
                       <i class="el-icon-right" size="18" />
-                      <span>退出登陆</span>
+                      <span>退出登录</span>
                     </el-dropdown-item>
                   </a>
                 </el-dropdown-menu>
@@ -156,7 +156,7 @@
           <div ref="rootFooter">
             <div class="footer-links">
               <el-link
-               
+
                 v-for="(item, index) in pageData.footerLinks"
                 :key="index"
                 type="text"
@@ -314,7 +314,7 @@ export default {
       this.isCollapsed = !this.isCollapsed;
     },
     onLogout() {
-      this.$confirm("您确定退出登录当前账户吗？", "退出登陆确认").then(() => {
+      this.$confirm("您确定退出登录当前账户吗？", "退出登录确认").then(() => {
         window.location.href = this.pageData.url.logout;
       });
     },
