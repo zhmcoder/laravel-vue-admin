@@ -13,11 +13,9 @@ class HandleController extends Controller
     public function uploadFile(Request $request)
     {
         try {
-            /*
             \Admin::validatorData($request->all(), [
                 'file' => 'mimes:' . config('admin.upload.mimes', 'jpeg,bmp,png,gif,jpg')
             ]);
-            */
             return $this->upload($request);
         } catch (\Exception $exception) {
             return \Admin::responseError($exception->getMessage());
