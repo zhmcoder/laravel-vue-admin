@@ -471,11 +471,11 @@ class FormItem extends Component
      * @param null $fieldName
      * @return $this
      */
-    public function unique($unique = true, $table = null, $field = null, $fieldName = null)
+    public function unique($unique = true, $table = null, $field = null, $fieldName = null, $extended = '')
     {
         if ($unique && !empty($table) && !empty($field) && !empty($fieldName)) {
             $this->serveCreationRules(['unique:' . $table]);
-            $this->serveUpdateRules(['unique:' . $table . ',' . $field . ',{{id}}']);
+            $this->serveUpdateRules(['unique:' . $table . ',' . $field . ',{{id}},id,deleted_at,NULL' . $extended]);
             $this->serveRulesMessage(['unique' => $fieldName . ' 已存在']);
         }
         return $this;
