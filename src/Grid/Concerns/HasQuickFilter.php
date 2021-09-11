@@ -1,14 +1,11 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Grid\Concerns;
-
 
 use SmallRuralDog\Admin\Components\Form\Radio;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Tools\QuickFilter;
-use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
 
 //<!--deep admin start-->
 
@@ -17,14 +14,13 @@ use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
  */
 trait HasQuickFilter
 {
-
     /**
      * @property Column $columns
      * @var QuickFilter
      */
     public $quickFilter;
-    public $or = false;
-    public $operator = '=';
+    private $or = false;
+    private $operator = '=';
 
     public function quickFilter()
     {
@@ -42,10 +38,7 @@ trait HasQuickFilter
         if ($this->quickFilter == null) {
             $this->quickFilter = new QuickFilter();
         }
-
         $this->quickFilter->filterKey = $filterKey;
-
-
         return $this;
     }
 
@@ -55,8 +48,7 @@ trait HasQuickFilter
             $this->quickFilter = new QuickFilter();
         }
         $this->quickFilter->options = $options;
-        array_unshift($this->quickFilter->options,
-            Radio::make('', '全部'));
+        array_unshift($this->quickFilter->options, Radio::make('', '全部'));
         return $this;
     }
 
@@ -72,11 +64,13 @@ trait HasQuickFilter
     public function or($or = true)
     {
         $this->or = $or;
+        return $this;
     }
 
     public function operator($operator = '=')
     {
         $this->operator = $operator;
+        return $this;
     }
 
     /**
@@ -86,12 +80,9 @@ trait HasQuickFilter
      */
     protected function applyQuickFilter()
     {
-
-        debug_log_info('quick filter = ' . json_encode($this->quickFilter));
         if (!$this->quickFilter) {
             return;
         }
-        debug_log_info('quick filter query = ' . request()->get($this->quickFilter->filterKey));
         $query = request()->get($this->quickFilter->filterKey);
         if ($query === 'NULL') {
             $query = null;
@@ -104,6 +95,5 @@ trait HasQuickFilter
         }
         $this->addWhereBasicBinding($this->quickFilter->filterKey, $this->or, $this->operator, $query);
     }
-
 }
 //<!--deep admin end-->
