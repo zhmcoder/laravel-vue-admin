@@ -23,12 +23,13 @@ trait HasQuickFilter
      * @var QuickFilter
      */
     public $quickFilter;
-
+    public $or = false;
+    public $operator = '=';
 
     public function quickFilter()
     {
         $this->quickFilter = new QuickFilter();
-        $this->quickFilter->defaultValue='';
+        $this->quickFilter->defaultValue = '';
         return $this;
     }
 
@@ -68,6 +69,16 @@ trait HasQuickFilter
         return $this;
     }
 
+    public function or($or = true)
+    {
+        $this->or = $or;
+    }
+
+    public function operator($operator = '=')
+    {
+        $this->operator = $operator;
+    }
+
     /**
      * Apply the search query to the query.
      *
@@ -88,7 +99,10 @@ trait HasQuickFilter
         if ($query == '' || $query == null) {
             return;
         }
-        $this->addWhereBasicBinding($this->quickFilter->filterKey, false, '=', $query);
+        if (strpos($query, 'default_') !== false) {
+            return;
+        }
+        $this->addWhereBasicBinding($this->quickFilter->filterKey, $this->or, $this->operator, $query);
     }
 
 }

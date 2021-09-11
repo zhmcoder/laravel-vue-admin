@@ -8,6 +8,7 @@ use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
 use Illuminate\Support\Str;
+
 /**
  * @method  Model model()
  */
@@ -265,6 +266,12 @@ trait HasQuickSearch
             $value = substr($value, 1, -1);
         }
 
-        $this->model()->{$method}($column, $operator, $value);
+        // deep admin start
+        if ($operator == 'In') {
+            $this->model()->{$method . $operator}($column, explode(',', $value));
+        } else {
+            $this->model()->{$method}($column, $operator, $value);
+        }
+        // deep admin end
     }
 }
