@@ -4,12 +4,12 @@
       <el-aside
         ref="contentSide"
         class="content-side"
-        :class="{ 'content-side-fixed': fixedSide, 'side-dark': !isDark }"
+        :class="{ 'content-side-fixed': fixedSide, 'side-dark': isDark ? true : false ,'side-blue':isBlue ? true : false }"
         :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
           <template v-if="pageData.logoShow">
-            <template v-if="!isDark">
+            <template v-if="isWhite">
               <template v-if="pageData.logoLight">
                 <img v-if="isCollapsed" :src="pageData.logoMiniLight" />
                 <img v-else :src="pageData.logoLight" />
@@ -19,7 +19,17 @@
                 <img v-else src="../assets/logo-light.svg" />
               </template>
             </template>
-            <template v-else>
+            <template v-else-if="isDark">
+              <template v-if="pageData.logo">
+                <img v-if="isCollapsed" :src="pageData.logoMini" />
+                <img v-else :src="pageData.logo" />
+              </template>
+              <template v-else>
+                <img v-if="isCollapsed" src="../assets/logo-mini.svg" />
+                <img v-else src="../assets/logo.svg" />
+              </template>
+            </template>
+            <template v-else-if="isBlue">
               <template v-if="pageData.logo">
                 <img v-if="isCollapsed" :src="pageData.logoMini" />
                 <img v-else :src="pageData.logo" />
@@ -36,8 +46,8 @@
           <el-menu
             :default-active="route"
             :collapse="isCollapsed"
-            :background-color="!isDark ? '#1d1e23' : ''"
-            :text-color="!isDark ? '#ffffff' : ''"
+            :background-color="isDark ? '#1d1e23' : isWhite ? '': isBlue ?'rgb(48, 65, 86)' : ''"
+            :text-color="isDark ? '#ffffff' : isWhite ? '': isBlue ? 'rgb(191, 203, 217)' : ''"
             :collapse-transition="false"
             :unique-opened="pageData.uniqueOpened"
             :router="true"
@@ -83,7 +93,8 @@
           :style="{ padding: 0 }"
           class="layout-header-bar"
           :class="{
-            'layout-header-bar-dark': !isDarkHeader,
+            'layout-header-bar-dark': !isDarkHeader && isDark,
+            'layout-header-bar-blue': !isDarkHeader && isBlue,
             'layout-header-bar-fixed': fixedHeader,
             'layout-header-bar-fixed-collapsed': isCollapsed,
           }"
@@ -101,6 +112,7 @@
                 <el-breadcrumb-item :to="{ path: '/' }"
                   >首页</el-breadcrumb-item
                 >
+                <!-- navBar -->
                 <template v-for="menu in pageData.menuList">
                   <el-breadcrumb-item
                     v-if="menu.route == route"
@@ -176,22 +188,33 @@
       <div style="padding:0 10px;">
         <el-divider>主题风格</el-divider>
         <div>
-          <el-badge type="success" is-dot :hidden="!isDark">
+          <el-badge type="success" is-dot :hidden="!isWhite">
             <div>
               <el-tooltip content="亮色菜单风格" placement="top">
                 <img
-                  @click="isDark = true"
+                  @click="isWhite = true; isBlue=false; isDark=false"
                   class="hover"
                   src="../assets/menu-light.svg"
                 />
               </el-tooltip>
             </div>
           </el-badge>
-          <el-badge type="success" is-dot :hidden="isDark">
+          <el-badge type="success" is-dot :hidden="!isDark">
             <div class="ml-20">
               <el-tooltip content="暗色菜单风格" placement="top">
                 <img
-                  @click="isDark = false"
+                  @click="isDark = true;isWhite = false; isBlue=false; "
+                  class="hover"
+                  src="../assets/menu-dark.svg"
+                />
+              </el-tooltip>
+            </div>
+          </el-badge>
+          <el-badge type="success" is-dot :hidden="!isBlue">
+            <div class="ml-20">
+              <el-tooltip content="蓝色菜单风格" placement="top">
+                <img
+                  @click="isBlue = true;isDark = false;isWhite = false;"
                   class="hover"
                   src="../assets/menu-dark.svg"
                 />
@@ -253,15 +276,15 @@ export default {
       isCollapsed: localStorage.getItem("isCollapsed")
         ? localStorage.getItem("isCollapsed") == "true"
         : false,
-      isDark: localStorage.getItem("isDark")
-        ? localStorage.getItem("isDark") == "true"
-        : true,
+      isDark: localStorage.getItem("isDark")? true: false,
       isDarkHeader: localStorage.getItem("isDarkHeader")
         ? localStorage.getItem("isDarkHeader") == "true"
         : true,
       showAdminSet: false,
       route: "/",
       query: {},
+      isBlue: localStorage.getItem('isBlue')?true:false,
+      isWhite: localStorage.getItem("isWhite")?true: false,
     };
   },
   mounted() {
@@ -330,7 +353,14 @@ export default {
       localStorage.setItem("isCollapsed", val);
     },
     isDark(val) {
+      console.log('hhh');
       localStorage.setItem("isDark", val);
+    },
+    isWhite(val){
+      localStorage.setItem("isWhite", val);
+    },
+    isBlue(val){
+      localStorage.setItem("isBlue", val);
     },
     isDarkHeader(val) {
       localStorage.setItem("isDarkHeader", val);
@@ -582,5 +612,47 @@ $header-bar-height: 55px;
 }
 .el-drawer__header {
   margin-bottom: 0;
+}
+.side-blue{
+  background-color: rgb(48, 65, 86);
+  box-shadow: 2px 0 6px rgba(48, 65, 86, 0.35);
+  // .content-side-logo{
+  //   background: #2b2f3a;
+  // }
+  .content-side-logo {
+    h1 {
+      color: rgb(191, 203, 217);
+    }
+  }
+  .el-menu-item:hover{
+    background: rgb(38, 52, 69) !important;
+  }
+  .el-submenu__title:hover{
+    background: rgb(38, 52, 69) !important;
+  }
+  .el-submenu .el-menu-item{
+    background-color: #1f2d3d !important;
+  }
+  .el-submenu .el-menu-item:hover{
+    background-color: #001528 !important;
+  }
+}
+.layout-header-bar-blue{
+  background: rgb(48, 65, 86);
+  color: white;
+  .el-dropdown {
+    color: white;
+  }
+  .el-breadcrumb__inner {
+    color: #ffffffb3 !important;
+  }
+  .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+    color: white !important;
+  }
+  .hover {
+    &:hover {
+      background-color: #1d1e23;
+    }
+  }
 }
 </style>
