@@ -28,6 +28,7 @@ use SmallRuralDog\Admin\Layout\Content;
 class Grid extends Component
 {
     use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter, HasQuickFilter;
+
     //<!--deep admin-->
     /**
      * 组件名称
@@ -90,12 +91,28 @@ class Grid extends Component
      * @var Form
      */
     protected $dialogForm;
+
+
+    /**
+     * @var Form
+     */
+    protected $addDialogForm;
+
+    /**
+     * @var Form
+     */
+    protected $editDialogForm;
     /**
      * @var string
      */
     protected $dialogFormWidth;
     protected $dialogTitle = ['添加', '修改'];
 
+    protected $addDialogFormWidth;
+    protected $addDialogFormTitle = ['添加', '修改'];
+
+    protected $editDialogFormWidth;
+    protected $editDialogFormTitle = ['添加', '修改'];
 
     public function __construct(Eloquent $model = null)
     {
@@ -168,9 +185,6 @@ class Grid extends Component
         $this->appendFields = $appendFields;
         return $this;
     }
-
-
-
 
 
     /**
@@ -334,11 +348,49 @@ class Grid extends Component
     }
 
     /**
+     * @param Form $dialogForm
+     * @param  $width
+     * @param  $title
+     * @return Grid
+     */
+    public function addDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
+    {
+        $this->addDialogForm = $dialogForm;
+        $this->addDialogFormWidth = $width;
+        $this->addDialogFormTitle = $title;
+        return $this;
+    }
+
+    /**
+     * @param Form $dialogForm
+     * @param  $width
+     * @param  $title
+     * @return Grid
+     */
+    public function editDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
+    {
+        $this->editDialogForm = $dialogForm;
+        $this->editDialogFormWidth = $width;
+        $this->editDialogFormTitle = $title;
+        return $this;
+    }
+
+    /**
      * @return Form
      */
     public function getDialogForm()
     {
         return $this->dialogForm;
+    }
+
+    public function getAddDialogForm()
+    {
+        return $this->addDialogForm;
+    }
+
+    public function getEditDialogForm()
+    {
+        return $this->editDialogForm;
     }
 
 
@@ -450,6 +502,15 @@ class Grid extends Component
             $viewData['dialogForm'] = $this->dialogForm;
             $viewData['dialogFormWidth'] = $this->dialogFormWidth;
             $viewData['dialogTitle'] = $this->dialogTitle;
+
+            $viewData['addDialogForm'] = $this->addDialogForm;
+            $viewData['addDialogFormWidth'] = $this->addDialogFormWidth;
+            $viewData['addDialogFormTitle'] = $this->addDialogFormTitle;
+
+            $viewData['editDialogForm'] = $this->editDialogForm;
+            $viewData['editDialogFormWidth'] = $this->editDialogFormWidth;
+            $viewData['editDialogFormTitle'] = $this->editDialogFormTitle;
+
             $viewData['ref'] = $this->getRef();
             return $viewData;
         }
