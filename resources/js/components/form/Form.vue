@@ -106,7 +106,7 @@
                 >
                     <div
                         class="form-bottom-actions flex padding-tb"
-                        :class="{ 'form-bottom-actions-fixedxxx': attrs.actions.fixed }"
+                        :class="{ 'form-bottom-actions-fixedxxx': attrs.actions.fixed , 'form-bottom-actions_center':attrs.actions.styleCenter}"
                     >
                         <div>
                             <component
@@ -117,7 +117,7 @@
                             />
                         </div>
                         <!--deep admin start-->
-                        <div class="flex custom_style">
+                        <div class="flex custom_style" :class="{'custom_style_center':attrs.actions.styleCenter}">
                             <!--deep admin end-->
                             <component
                                 v-for="(component, index) in attrs.actions.addRightActions"
@@ -366,10 +366,15 @@
             align-items: center;
             justify-content: space-between;
         }
-
+        .form-bottom-actions_center{
+            justify-content: center;
+        }
         //deep admin start
         .custom_style {
             padding-right: 100px;
+        }
+        .custom_style_center{
+            padding-right: 0px;
         }
 
         //deep admin end
