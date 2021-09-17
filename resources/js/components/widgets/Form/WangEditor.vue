@@ -66,11 +66,26 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .wangeditor-main {
   border: 1px solid #dcdcdc;
   .toolbar {
     background: #f7f7f7;
   }
+  .w-e-text-container{
+    position: relative;
+    .w-e-text{
+      position:absolute;
+      height:100%;
+      p{
+        position: absolute;
+        left: 10px;
+        top: 0px;
+        right: 10px;
+        bottom: 0px;
+      }
+    }
+  }
 }
+
 </style>
