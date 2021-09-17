@@ -12,7 +12,7 @@
         class="margin-bottom-sm"
         v-if="attrs.filter.filters.length > 0"
       >
-        <div class="filter-form">
+        <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
           <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
             <el-form-item v-if="attrs.quickSearch">
               <el-input
@@ -263,6 +263,7 @@
       :dialogFormWidth="attrs.dialogFormWidth"
       :dialogForm="attrs.dialogForm"
       :dialogTitle="attrs.dialogTitle"
+      :dialogTitleCenter="attrs.dialogTitleCenter"
     />
   </div>
 </template>
@@ -697,6 +698,12 @@ export default {
       .el-form-item__label {
         padding: 0;
       }
+    }
+  }
+  .filter-form-style-center{
+    .el-form {
+      display: flex;
+      justify-content: center;
     }
   }
 }
