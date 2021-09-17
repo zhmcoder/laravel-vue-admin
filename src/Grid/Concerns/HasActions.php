@@ -55,6 +55,15 @@ trait HasActions
         return $this->deleteAction;
     }
 
+    /**
+     * 删除操作实例
+     * @return DeleteAction
+     */
+    public function setDeleteAction(Grid\Actions\DeleteDialogAction $deleteDialog)
+    {
+        $this->deleteAction = $deleteDialog;
+    }
+
 
     /**
      * 隐藏所有操作

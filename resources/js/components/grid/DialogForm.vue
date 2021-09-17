@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-      :title="key == null ? dialogTitle[0] || '添加1' : dialogTitle[1] || '编辑'"
+      :title="key == null ? dialogTitle[0] || '添加' : dialogTitle[1] || '编辑'"
       :width="dialogFormWidth"
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"

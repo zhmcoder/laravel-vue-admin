@@ -95,6 +95,10 @@ Vue.component(
     require("@/components/widgets/Actions/DeleteAction").default
 );
 Vue.component(
+	"DeleteDialogAction",
+	require("@/components/widgets/Actions/DeleteDialogAction").default
+);
+Vue.component(
     "VueRouteAction",
     require("@/components/widgets/Actions/VueRouteAction").default
 );
