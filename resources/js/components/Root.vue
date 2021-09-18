@@ -255,13 +255,16 @@
       </div>
     </el-drawer>
     <vue-progress-bar></vue-progress-bar>
+    <message-dialog :attrs="attrs" v-if="isMsgDialogShow"/>
   </div>
 </template>
 
 <script>
 import { flattenDeepChild } from "../utils";
+import MessageDialog from './grid/MessageDialog.vue';
 
 export default {
+  components:{ MessageDialog },
   props: {
     pageData: Object,
   },
@@ -285,6 +288,15 @@ export default {
       query: {},
       isBlue: localStorage.getItem('isBlue')?true:false,
       isWhite: localStorage.getItem("isWhite")?true: false,
+      attrs:{
+        title:'首页弹窗',
+        content:'首页内容首页内容首页内容首页内容首页内容首页内容首页内容首页内容首页内容首页内容首页内容',
+        footer:true,
+        center:true,
+        okText:'我知道了',
+        okShow:true
+      },
+      isMsgDialogShow:false,
     };
   },
   mounted() {
@@ -343,6 +355,13 @@ export default {
     },
   },
   watch: {
+    $route(){
+      if(this.$route.path=='/home'){
+        this.isMsgDialogShow = true;
+      }else{
+        this.isMsgDialogShow = false;
+      }
+    },
     fixedSide(val) {
       localStorage.setItem("fixedSide", val);
     },
