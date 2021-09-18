@@ -260,9 +260,9 @@
     <DialogForm
       ref="DialogGridFrom"
       v-if="attrs.dialogForm"
-      :dialogFormWidth="attrs.dialogFormWidth"
-      :dialogForm="attrs.dialogForm"
-      :dialogTitle="attrs.dialogTitle"
+      :dialogFormWidth="getDialogFormData(1)"
+      :dialogForm="getDialogFormData(2)"
+      :dialogTitle="getDialogFormData(3)"
       :dialogTitleCenter="attrs.dialogTitleCenter"
     />
   </div>
@@ -307,7 +307,8 @@ export default {
       tabsSelectdata: {},
       tabsActiveName: "all",
       topViewHeight: 0,
-      toolbarsViewHeight: 0
+      toolbarsViewHeight: 0,
+      addOrEdit:'', //点击的action是否是添加或修改
     };
   },
   mounted() {
@@ -360,6 +361,7 @@ export default {
     });
 
     this.$bus.on("showDialogGridFrom", ({ isShow, key }) => {
+      this.addOrEdit = addOrEdit;
       this.$refs["DialogGridFrom"].dialogVisible = isShow;
       this.$refs["DialogGridFrom"].key = key;
     });
@@ -571,6 +573,23 @@ export default {
             }
           }
         })
+    },
+    /**
+     * 获取DialogForm的展示数据
+     * type 获取的类型数据--1:dialogFormWidth 2:dialogForm 3:dialogTitle
+     */
+    getDialogFormData(type){
+      let actionType = this.addOrEdit;
+      if(type==1){
+        if(actionType) return this.attrs[actionType+'DialogFormWidth'] || this.attrs.dialogFormWidth;
+        return this.attrs.dialogFormWidth
+      }else if(type==2){
+        if(actionType) return this.attrs[actionType+'DialogForm'] || this.attrs.dialogForm;
+        return this.attrs.dialogForm
+      }else if(type==3){
+        if(actionType) return this.attrs[actionType+'DialogFormTitle'] || this.attrs.dialogTitle;
+        return this.attrs.dialogTitle
+      }
     }
   },
   computed: {

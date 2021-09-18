@@ -30,7 +30,7 @@ export default {
   methods: {
     onHandle() {
       if (this.action.isDialog) {
-        this.$bus.emit("showDialogGridFrom", { isShow: true, key: this.key });
+         this.$bus.emit("showDialogGridFrom", { isShow: true, key: this.key , addOrEdit:'edit' });
       } else {
         //deep admin start
         this.$router.push(this.$route.path + "/" + this.key + "/edit" + '?' + this.action.params);
