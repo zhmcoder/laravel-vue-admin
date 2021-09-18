@@ -114,6 +114,16 @@ class Grid extends Component
     protected $editDialogFormWidth;
     protected $editDialogFormTitle = ['添加', '修改'];
 
+    /*
+     * 弹窗标题居中
+     */
+    protected $dialogTitleCenter = true;
+
+    /**
+     * @var 居中显示
+     */
+    protected $filterFormCenter;
+
     public function __construct(Eloquent $model = null)
     {
         $this->attributes = new Attributes();
@@ -393,6 +403,30 @@ class Grid extends Component
         return $this->editDialogForm;
     }
 
+    /**
+     * 搜索居中
+     *
+     * @param bool $filterFormCenter
+     * @return $this
+     */
+    public function filterFormCenter($filterFormCenter = true)
+    {
+        $this->filterFormCenter = $filterFormCenter;
+        return $this;
+    }
+
+    /**
+     * 弹窗标题居中
+     *
+     * @param bool $dialogTitleCenter
+     * @return $this
+     */
+    public function dialogTitleCenter($dialogTitleCenter = true)
+    {
+        $this->dialogTitleCenter = $dialogTitleCenter;
+        return $this;
+    }
+
 
     /**
      * @param $closure
@@ -512,6 +546,8 @@ class Grid extends Component
             $viewData['editDialogFormTitle'] = $this->editDialogFormTitle;
 
             $viewData['ref'] = $this->getRef();
+            $viewData['filterFormCenter'] = $this->filterFormCenter;
+            $viewData['dialogTitleCenter'] = $this->dialogTitleCenter;
             return $viewData;
         }
     }

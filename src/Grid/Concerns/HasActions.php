@@ -26,6 +26,8 @@ trait HasActions
 
     private $grid;
 
+    private $styleCenter = true;
+
 
     public function __construct(Grid $grid)
     {

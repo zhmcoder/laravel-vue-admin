@@ -23,6 +23,7 @@ class FormActions
     protected $hideSubmitButton;
 
     protected $fixed = false;
+    protected $buttonCenter = true;
 
     public function __construct(Form $form)
     {
@@ -114,14 +115,23 @@ class FormActions
     }
 
     /**
+     * 按钮居中
+     * @param bool $buttonCenter
+     * @return $this
+     */
+    public function buttonCenter($buttonCenter = true)
+    {
+        $this->buttonCenter = $buttonCenter;
+        return $this;
+    }
+
+    /**
      * @return Form
      */
     public function getForm()
     {
         return $this->form;
     }
-
-
 
 
     public function builderActions()
@@ -152,6 +162,7 @@ class FormActions
             'cancelButton' => $cancelButton,
             'submitButton' => $submitButton,
             'fixed' => $this->fixed,
+            'buttonCenter' => $this->buttonCenter,
         ];
     }
 

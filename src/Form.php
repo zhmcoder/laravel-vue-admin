@@ -18,8 +18,10 @@ use SmallRuralDog\Admin\Form\HasHooks;
 use SmallRuralDog\Admin\Form\HasRef;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
 use SmallRuralDog\Admin\Layout\Content;
+
 //deep admin start
 use Illuminate\Support\Str;
+
 //deep admin end
 use Symfony\Component\HttpFoundation\Response;
 
@@ -171,6 +173,11 @@ class Form extends Component
     {
         call_user_func($closure, $this->actions);
         return $this;
+    }
+
+    public function getActions(): FormActions
+    {
+        return $this->actions;
     }
 
     /**
@@ -812,7 +819,7 @@ class Form extends Component
             'formRefData' => $this->FormRefDataBuild(),
             'top' => $this->top,
             'bottom' => $this->bottom,
-            'actions'=>$this->actions->builderActions()
+            'actions' => $this->actions->builderActions()
         ];
 
     }
