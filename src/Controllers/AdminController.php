@@ -18,9 +18,28 @@ class AdminController extends Controller
     {
         //可以重写这里，实现自定义布局
         $content->body($this->grid())->className("m-10");
+        $content->isMsgDialogShow($this->isMsgDialogShow());
+        if ($this->isMsgDialogShow() && $this->msgDialog()) {
+            $content->msgDialog($this->msgDialog());
+        }
 
         //这里必须这样写
         return $this->isGetData() ? $this->grid() : $content;
+    }
+
+    public function isMsgDialogShow()
+    {
+        return false;
+    }
+
+    public function msgDialog()
+    {
+        return [
+            'title'=>'系统提示',
+            'content'=>'系统提示',
+            'okText'=>'确认好了',
+            'width'=>'400px'
+        ];
     }
 
 

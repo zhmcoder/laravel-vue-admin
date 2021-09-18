@@ -14,6 +14,8 @@ class Content extends Component
     protected $description = "";
 
     protected $rows = [];
+    protected $isMsgDialogShow = false;
+    protected $msgDialog = null;
 
     public static function make()
     {
@@ -39,7 +41,6 @@ class Content extends Component
         return $this;
     }
 
-    
 
     protected function addRow(Row $row)
     {
@@ -73,6 +74,36 @@ class Content extends Component
     public function description($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * 是否显示对话框
+     *
+     * @param $isMsgDialogShow
+     * @return $this
+     */
+    public function isMsgDialogShow($isMsgDialogShow)
+    {
+        $this->isMsgDialogShow = $isMsgDialogShow;
+        return $this;
+    }
+
+    /**
+     * 对话属性
+     * [
+    'title'=>'系统提示',
+    'content'=>'系统提示',
+    'okText'=>'确认好了',
+    'width'=>'400px'
+    ];
+     *
+     * @param $msgDialog
+     * @return $this
+     */
+    public function msgDialog($msgDialog)
+    {
+        $this->msgDialog = $msgDialog;
         return $this;
     }
 

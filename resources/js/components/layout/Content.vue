@@ -3,25 +3,31 @@
     <div class="layout-page-header" v-if="attrs.showHeader">
       <div class="layout-page-header-title" v-html="attrs.title"></div>
       <div
-        class="layout-page-header-description"
-        v-html="attrs.description"
+          class="layout-page-header-description"
+          v-html="attrs.description"
       ></div>
     </div>
     <div>
       <component
-        v-for="(row, index) in attrs.rows"
-        :key="index"
-        :is="row.componentName"
-        :attrs="row"
-        v-bind="$props"
+          v-for="(row, index) in attrs.rows"
+          :key="index"
+          :is="row.componentName"
+          :attrs="row"
+          v-bind="$props"
       />
     </div>
   </div>
 </template>
 <script>
-export default {
-  props: {
-    attrs: Object,
-  },
-};
+	export default {
+		props: {
+			attrs: Object,
+		},
+		mounted() {
+			this.$bus.emit('msgDialogShow', {
+				isMsgDialogShow: this.attrs.isMsgDialogShow,
+				msgDialog: this.attrs.msgDialog
+			});
+		}
+	};
 </script>
