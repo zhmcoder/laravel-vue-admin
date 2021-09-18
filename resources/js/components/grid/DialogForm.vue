@@ -4,6 +4,7 @@
       :width="dialogFormWidth"
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"
+	  :center="dialogTitleCenter"
       @closed="onClose"
   >
     <component
@@ -19,6 +20,7 @@
 			dialogForm: Object,
 			dialogFormWidth: String,
 			dialogTitle: Array,
+			dialogTitleCenter:Boolean
 		},
 		data() {
 			return {
