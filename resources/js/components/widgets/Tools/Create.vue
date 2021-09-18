@@ -23,7 +23,7 @@
 		methods: {
 			onCreate() {
 				if (this.attrs.isDialog) {
-					this.$bus.emit("showDialogGridFrom", {isShow: true});
+					this.$bus.emit("showDialogGridFrom", {isShow: true,addOrEdit:'add'});
 				} else {
 					let version = new Date().getTime();
 					// deep-admin start
