@@ -19,7 +19,15 @@ export default {
 
       if (key) {
         let cValue = window._.get(this.form_data, key);
-        if (cValue == value || (cValue && anyValue)) {
+        if(value && typeof(JSON.parse(value))=='object'){
+          // 假设后台返回的是可以转为数据的value，对后台返回来的value进行处理
+          var newValue=[];
+          let arr = JSON.parse(value);
+          arr.map(item=>{
+            newValue.push(String(item));
+          })
+        }
+        if (cValue == value || (cValue && anyValue) || (newValue && cValue && typeof(newValue)=='object' && newValue.indexOf(String(cValue))>-1)) {
           return true;
         } else {
           return false;

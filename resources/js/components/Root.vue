@@ -93,7 +93,7 @@
             :style="{ padding: 0 }"
             class="layout-header-bar"
             :class="{
-            'layout-header-bar-dark': !isDarkHeader && isDark,
+            'layout-header-bar-dark': !isDarkHeader,
             'layout-header-bar-blue': !isDarkHeader && isBlue,
             'layout-header-bar-fixed': fixedHeader,
             'layout-header-bar-fixed-collapsed': isCollapsed,
@@ -282,15 +282,15 @@
 				isCollapsed: localStorage.getItem("isCollapsed")
 					? localStorage.getItem("isCollapsed") == "true"
 					: false,
-				isDark: localStorage.getItem("isDark") ? true : false,
+				isDark: localStorage.getItem("isDark")=='true' ? true : false,
 				isDarkHeader: localStorage.getItem("isDarkHeader")
 					? localStorage.getItem("isDarkHeader") == "true"
 					: true,
 				showAdminSet: false,
 				route: "/",
 				query: {},
-				isBlue: localStorage.getItem('isBlue') ? true : false,
-				isWhite: localStorage.getItem("isWhite") ? true : false,
+				isBlue: localStorage.getItem('isBlue')=='true' ? true : false,
+				isWhite: localStorage.getItem("isWhite")=='true' ? true : false,
 				dialog_attrs: {
 					title: '系统提示',
 					content: '系统提示内容',
@@ -302,6 +302,12 @@
 				isMsgDialogShow: false,
 			};
 		},
+    created(){
+      if((!localStorage.getItem("isDark")&&!localStorage.getItem("isBlue"))||(localStorage.getItem("isDark")=='false'&&localStorage.getItem("isBlue")=='false')){
+        this.isWhite = true;
+				localStorage.setItem("isWhite", "true");
+      }
+    },
 		mounted() {
 			//监听路由变动
 			this.$bus.on("route-after", (to) => {
