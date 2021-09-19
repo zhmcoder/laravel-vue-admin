@@ -117,7 +117,7 @@ class Grid extends Component
     /*
      * 弹窗标题居中
      */
-    protected $dialogTitleCenter = true;
+    protected $dialogTitleCenter = false;
 
     /**
      * @var 居中显示
