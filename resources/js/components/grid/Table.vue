@@ -360,7 +360,7 @@ export default {
       this.loading = status;
     });
 
-    this.$bus.on("showDialogGridFrom", ({ isShow, key }) => {
+    this.$bus.on("showDialogGridFrom", ({ isShow, key , addOrEdit }) => {
       this.addOrEdit = addOrEdit;
       this.$refs["DialogGridFrom"].dialogVisible = isShow;
       this.$refs["DialogGridFrom"].key = key;

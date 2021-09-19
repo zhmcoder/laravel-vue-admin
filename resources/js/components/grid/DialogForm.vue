@@ -52,6 +52,9 @@
 					this.showForm = true;
 				}
 			},
+			dialogForm(val){
+				this.selfDialogForm = this._.cloneDeep(this.dialogForm);
+			}
 		},
 		methods: {
 			onClose() {
