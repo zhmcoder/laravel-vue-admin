@@ -30,7 +30,7 @@
                 :size="attrs.attrs.size"
                 :disabled="attrs.attrs.disabled"
             >
-                <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'">
+                <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="attrs.attrs.hideTab ? null : attrs.attrs.tabPosition ">
                     <component
                         :is="attrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
                         :label="tab"
