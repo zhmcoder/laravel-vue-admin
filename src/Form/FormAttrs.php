@@ -22,6 +22,11 @@ class FormAttrs
     public $disabled = false;
 
     public $hideTab = true;
+    /**
+     * left，right，top，bottom 表示展示的方向
+     * @var string
+     */
+    public $tabPosition = 'top';
 
     public $isDialog = false;
 
