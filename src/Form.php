@@ -52,6 +52,8 @@ class Form extends Component
     protected $mode = 'create';
     protected $action;
 
+    protected $actionParams;
+
     protected $dataUrl;
 
     protected $ignored = [];
@@ -205,19 +207,32 @@ class Form extends Component
     }
 
     /**
+     * 表单请求参数
+     * @param $actionParams
+     * @return $this
+     */
+    public function actionParams($actionParams)
+    {
+        $this->actionParams = $actionParams;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getAction(): string
     {
+        $params = $this->actionParams ? http_build_query($this->actionParams) : null;
         if ($this->action) {
-            return $this->action;
+            return strpos('?', $this->action) >= 0 ?
+                ($this->action . ($params ? ('&' . $params) : '')) : ($this->action . ($params ? ('?' . $params) : ''));
         }
         if ($this->isMode(static::MODE_EDIT)) {
-            return $this->resource() . '/' . $this->id;
+            return $this->resource() . '/' . $this->id . ($params ? ('?' . $params) : '');
         }
 
         if ($this->isMode(static::MODE_CREATE)) {
-            return $this->resource(-1);
+            return $this->resource(-1) . ($params ? ('?' . $params) : '');
         }
 
         return '';

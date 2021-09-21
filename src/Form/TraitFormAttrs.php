@@ -168,6 +168,12 @@ trait TraitFormAttrs
         return $this;
     }
 
+    public function tabPosition($tabPosition = 'top')
+    {
+        $this->attrs->tabPosition = $tabPosition;
+        return $this;
+    }
+
     /**
      * 创建按钮名称
      * @param $createButtonName
@@ -213,8 +219,23 @@ trait TraitFormAttrs
      */
     public function isDialog()
     {
+        $params = $this->actionParams ? http_build_query($this->actionParams) : null;
         $this->attrs->isDialog = true;
-        $this->action = $this->resource(0);
+        if (empty($this->action)) {
+            if ($params) {
+                $this->action = $this->resource(0) . '?' . $params;
+            } else {
+                $this->action = $this->resource(0);
+            }
+        } else {
+            if ($params) {
+                if (strpos('?', $this->action) >= 0) {
+                    $this->action = $this->action . '&' . $params;
+                }
+            }
+        }
+
+
         return $this;
     }
 }
