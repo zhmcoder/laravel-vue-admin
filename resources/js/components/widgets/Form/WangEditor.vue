@@ -75,15 +75,11 @@ export default {
   .w-e-text-container{
     position: relative;
     .w-e-text{
-      position:absolute;
-      height:100%;
-      p{
-        position: absolute;
-        left: 10px;
-        top: 0px;
-        right: 10px;
-        bottom: 0px;
-      }
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
     }
   }
 }
