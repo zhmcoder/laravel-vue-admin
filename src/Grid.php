@@ -92,6 +92,8 @@ class Grid extends Component
      */
     protected $dialogForm;
 
+    protected $isDialogForm;
+
 
     /**
      * @var Form
@@ -354,6 +356,7 @@ class Grid extends Component
         $this->dialogForm = $dialogForm;
         $this->dialogFormWidth = $width;
         $this->dialogTitle = $title;
+        $this->isDialogForm = true;
         return $this;
     }
 
@@ -368,6 +371,7 @@ class Grid extends Component
         $this->addDialogForm = $dialogForm;
         $this->addDialogFormWidth = $width;
         $this->addDialogFormTitle = $title;
+        $this->isDialogForm = true;
         return $this;
     }
 
@@ -382,6 +386,7 @@ class Grid extends Component
         $this->editDialogForm = $dialogForm;
         $this->editDialogFormWidth = $width;
         $this->editDialogFormTitle = $title;
+        $this->isDialogForm = true;
         return $this;
     }
 
@@ -533,6 +538,9 @@ class Grid extends Component
             $viewData['filter'] = $this->filter->buildFilter();
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
+
+            $viewData['isDialogForm'] = $this->isDialogForm;
+
             $viewData['dialogForm'] = $this->dialogForm;
             $viewData['dialogFormWidth'] = $this->dialogFormWidth;
             $viewData['dialogTitle'] = $this->dialogTitle;

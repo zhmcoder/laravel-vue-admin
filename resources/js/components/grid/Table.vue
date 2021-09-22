@@ -259,7 +259,7 @@
     />
     <DialogForm
       ref="DialogGridFrom"
-      v-if="attrs.dialogForm"
+      v-if="attrs.isDialogForm"
       :dialogFormWidth="getDialogFormData(1)"
       :dialogForm="getDialogFormData(2)"
       :dialogTitle="getDialogFormData(3)"

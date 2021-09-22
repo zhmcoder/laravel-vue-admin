@@ -50,9 +50,15 @@ class Form extends Component
     const MODE_EDIT = 'edit';
     const MODE_CREATE = 'create';
     protected $mode = 'create';
-    protected $action;
 
+    protected $action;
     protected $actionParams;
+
+    /**
+     * 处理对话框时候url使用，不用来vue判断逻辑
+     * @var
+     */
+    protected $isDialog;
 
     protected $dataUrl;
 
@@ -223,6 +229,9 @@ class Form extends Component
     public function getAction(): string
     {
         $params = $this->actionParams ? http_build_query($this->actionParams) : null;
+        if ($this->isDialog) {
+            return $this->resource(0) . ($params ? ('?' . $params) : '');
+        }
         if ($this->action) {
             return strpos('?', $this->action) >= 0 ?
                 ($this->action . ($params ? ('&' . $params) : '')) : ($this->action . ($params ? ('?' . $params) : ''));

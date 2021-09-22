@@ -52,7 +52,6 @@ class Toolbars extends AdminJsonBuilder
     }
 
 
-
     /**
      * @param mixed $hideCreateButton
      * @return $this
@@ -93,12 +92,13 @@ class Toolbars extends AdminJsonBuilder
             $right->prepend($addRight);
         }
 
-        if($this->grid->getDialogForm()){
+        if ($this->grid->getDialogForm() || $this->grid->getAddDialogForm()
+            || $this->grid->getEditDialogForm()) {
             $this->createButton->isDialog(true);
         }
 
         return [
-            "show"=>$this->show,
+            "show" => $this->show,
             "left" => $left,
             "right" => $right
         ];

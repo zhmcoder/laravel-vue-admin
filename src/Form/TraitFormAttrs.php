@@ -219,6 +219,7 @@ trait TraitFormAttrs
      */
     public function isDialog()
     {
+        $this->isDialog = true;
         $params = $this->actionParams ? http_build_query($this->actionParams) : null;
         $this->attrs->isDialog = true;
         if (empty($this->action)) {
@@ -234,8 +235,6 @@ trait TraitFormAttrs
                 }
             }
         }
-
-
         return $this;
     }
 }
