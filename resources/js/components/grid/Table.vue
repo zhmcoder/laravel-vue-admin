@@ -361,7 +361,7 @@ export default {
     });
 
     this.$bus.on("showDialogGridFrom", ({ isShow, key , addOrEdit }) => {
-      this.addOrEdit = addOrEdit;
+      this.addOrEdit = addOrEdit || this.addOrEdit ;
       this.$refs["DialogGridFrom"].dialogVisible = isShow;
       this.$refs["DialogGridFrom"].key = key;
     });

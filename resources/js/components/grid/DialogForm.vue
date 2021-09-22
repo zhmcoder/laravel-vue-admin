@@ -34,8 +34,11 @@
 			this.selfDialogForm = this._.cloneDeep(this.dialogForm);
 		},
 		watch: {
+			dialogForm(){
+				this.selfDialogForm = this._.cloneDeep(this.dialogForm);
+			},
 			dialogVisible(val) {
-				console.log(this.dialogForm.dataUrl);
+				this.selfDialogForm = this._.cloneDeep(this.dialogForm);
 				if (val) {
 					if (this.key) {
 						this.selfDialogForm.mode = "edit";
@@ -51,9 +54,7 @@
 					}
 					this.showForm = true;
 				}
-			},
-			dialogForm(val){
-				this.selfDialogForm = this._.cloneDeep(this.dialogForm);
+
 			}
 		},
 		methods: {
