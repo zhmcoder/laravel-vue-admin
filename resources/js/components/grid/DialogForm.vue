@@ -50,7 +50,12 @@
 							this.selfDialogForm.dataUrl =
 								this.dialogForm.dataUrl + "/" + this.key + "/edit";
 						}
-						this.selfDialogForm.action = this.dialogForm.action + "/" + this.key;
+						let action = this.dialogForm.action.split('?');
+						if(action[1]){
+							this.selfDialogForm.action = action[0] + "/" + this.key + '?' + action[1];
+						}else{
+							this.selfDialogForm.action = this.dialogForm.action + "/" + this.key;
+						}
 					}
 					this.showForm = true;
 				}
