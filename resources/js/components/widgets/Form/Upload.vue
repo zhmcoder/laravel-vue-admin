@@ -75,7 +75,8 @@ export default {
     onDelete(index) {
       if (this._.isArray(this.value)) {
         let t_value = this._.clone(this.value);
-        t_value[index][this.attrs.remove_flag_name] = 1;
+        // t_value[index][this.attrs.remove_flag_name] = 1;     
+        t_value.splice(index,1);
         this.onChange(t_value);
       } else {
         this.onChange(null);

@@ -351,6 +351,7 @@
             },
             closeDialog() {
                 this.$bus.emit("showDialogGridFrom", {isShow: false});
+                this.$bus.emit("closeDialog");
             },
         },
     };
