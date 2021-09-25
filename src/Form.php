@@ -229,7 +229,7 @@ class Form extends Component
     public function getAction(): string
     {
         $params = $this->actionParams ? http_build_query($this->actionParams) : null;
-        if ($this->isDialog) {
+        if ($this->isDialog && empty($this->action)) {
             return $this->resource(0) . ($params ? ('?' . $params) : '');
         }
         if ($this->action) {

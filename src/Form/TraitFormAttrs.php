@@ -230,8 +230,11 @@ trait TraitFormAttrs
             }
         } else {
             if ($params) {
-                if (strpos('?', $this->action) >= 0) {
+                if (strpos($this->action, '?') >= 0) {
                     $this->action = $this->action . '&' . $params;
+                } else {
+                    $this->action = $this->action . '?' . $params;
+
                 }
             }
         }
