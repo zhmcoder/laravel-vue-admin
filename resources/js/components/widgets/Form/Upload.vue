@@ -41,10 +41,11 @@
         :accept="attrs.accept"
         list-type="text"
         :disabled="attrs.disabled"
-        :limit="limit"
         :on-exceed="onExceed"
         :on-success="onSuccess"
         :on-remove="onRemove"
+        :limit="attrs.limit" 
+        :file-list="list || []"
       >
         <el-button
           plain

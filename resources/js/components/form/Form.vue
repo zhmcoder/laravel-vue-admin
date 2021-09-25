@@ -62,7 +62,7 @@
                   <span slot="label" v-if="!item.hideLabel">
                     {{ item.label }}
                   </span>
-                                    <template>
+                                    <template v-if="!item.component||(item.component&&item.component.type!='hidden')">
                                         <el-col :span="item.inputWidth">
                                             <template v-if="item.relationName">
                                                 <ItemDiaplsy
