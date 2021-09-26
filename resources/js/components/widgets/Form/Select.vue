@@ -80,10 +80,6 @@ export default {
   },
   methods: {
     onChange(value) {
-      // console.log(value);
-      // console.log('formItem',this.formItem);
-      // console.log('formData',this.formData);
-      // console.log('formItems',this.formItems);
       let resValue = value;
       if (typeof value === "object") {
         // 排除value = 0
@@ -92,9 +88,7 @@ export default {
         resValue = null;
       }
       // 查看是否能查询后台
-      // console.log(this.attrs);
       if(this.attrs.isTab){
-        
         this.queryTabsData(this.attrs.tabAction,{value:value})
       }
 
