@@ -6,6 +6,7 @@ namespace SmallRuralDog\Admin\Grid\Concerns;
 use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\Grid\Actions\DeleteAction;
 use SmallRuralDog\Admin\Grid\Actions\EditAction;
+use SmallRuralDog\Admin\Grid\Actions\DeleteDialogAction;
 use SmallRuralDog\Admin\Grid\Tools\Action;
 
 trait HasActions
@@ -23,6 +24,7 @@ trait HasActions
 
     protected $editAction;
     protected $deleteAction;
+    protected $deleteDialogAction;
 
     private $grid;
 
@@ -36,6 +38,7 @@ trait HasActions
 
         $this->editAction = new EditAction();
         $this->deleteAction = new DeleteAction();
+        $this->deleteDialogAction = new DeleteDialogAction();
 
     }
 
@@ -61,9 +64,10 @@ trait HasActions
      * 删除操作实例
      * @return DeleteAction
      */
-    public function setDeleteAction(Grid\Actions\DeleteDialogAction $deleteDialog)
+    public function setDeleteAction(DeleteDialogAction $deleteDialog)
     {
         $this->deleteAction = $deleteDialog;
+        return $this->deleteAction;
     }
 
 
