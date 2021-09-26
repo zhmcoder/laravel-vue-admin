@@ -1,6 +1,6 @@
 <template>
     <div class="form-page">
-        <component
+        <!-- <component
             v-if="attrs.top"
             :is="attrs.top.componentName"
             :attrs="attrs.top"
@@ -116,9 +116,7 @@
                                 :attrs="component"
                             />
                         </div>
-                        <!--deep admin start-->
                         <div class="flex custom_style" :class="{'custom_style_center':attrs.actions.buttonCenter}">
-                            <!--deep admin end-->
                             <component
                                 v-for="(component, index) in attrs.actions.addRightActions"
                                 :key="component.componentName + index"
@@ -175,6 +173,181 @@
             v-if="attrs.bottom"
             :is="attrs.bottom.componentName"
             :attrs="attrs.bottom"
+        /> -->
+        
+        <component
+            v-if="newAttrs.top"
+            :is="newAttrs.top.componentName"
+            :attrs="newAttrs.top"
+        />
+        <component
+            :is="newAttrs.attrs.isDialog ? 'div' : 'el-card'"
+            shadow="never"
+            class="form-card"
+            v-loading="loading"
+        >
+            <el-form
+                v-if="formData"
+                :ref="newAttrs.ref || 'form'"
+                :model="formData"
+                :class="newAttrs.attrs.className"
+                :style="newAttrs.attrs.style"
+                :rules="newAttrs.formRules"
+                :inline="newAttrs.attrs.inline"
+                :label-position="newAttrs.attrs.labelPosition"
+                :label-width="newAttrs.attrs.labelWidth"
+                :label-suffix="newAttrs.attrs.labelSuffix"
+                :hide-required-asterisk="newAttrs.attrs.hideRequiredAsterisk"
+                :show-message="newAttrs.attrs.showMessage"
+                :inline-message="newAttrs.attrs.inlineMessage"
+                :status-icon="newAttrs.attrs.statusIcon"
+                :validate-on-rule-change="newAttrs.attrs.validateOnRuleChange"
+                :size="newAttrs.attrs.size"
+                :disabled="newAttrs.attrs.disabled"
+            >
+                <component :is="newAttrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="newAttrs.attrs.hideTab ? null : newAttrs.attrs.tabPosition ">
+                    <component
+                        :is="newAttrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
+                        :label="tab"
+                        v-for="tab in newAttrs.tabs"
+                        :key="tab"
+                    >
+                        <template v-for="(item, index) in newAttrs.formItems">
+                            <ItemIf
+                                v-if="tab == item.tab"
+                                :key="index"
+                                :form_item="item"
+                                :form_items="newAttrs.formItems"
+                                :form_data="formData"
+                            >
+                                <component
+                                    v-if="item.topComponent"
+                                    :is="item.topComponent.componentName"
+                                    :attrs="item.topComponent"
+                                />
+
+                                <el-form-item
+                                    :prop="item.prop"
+                                    :label-width="item.labelWidth"
+                                    :error="item.error"
+                                    :show-message="item.showMessage"
+                                    :inline-message="item.inlineMessage"
+                                    :size="item.size"
+                                >
+                  <span slot="label" v-if="!item.hideLabel">
+                    {{ item.label }}
+                  </span>
+                                    <template v-if="!item.component||(item.component&&item.component.type!='hidden')">
+                                        <el-col :span="item.inputWidth">
+                                            <template v-if="item.relationName">
+                                                <ItemDiaplsy
+                                                    v-model="
+                            formData[item.relationName][item.relationValueKey]
+                          "
+                                                    :form-item="item"
+                                                    :form-items="newAttrs.formItems"
+                                                    :form-data="formData"
+                                                />
+                                            </template>
+                                            <template v-else>
+                                                <ItemDiaplsy
+                                                    v-model="formData[item.prop]"
+                                                    :form-item="item"
+                                                    :form-items="newAttrs.formItems"
+                                                    :form-data="formData"
+                                                />
+                                            </template>
+
+                                            <div
+                                                v-if="item.help"
+                                                class="form-item-help"
+                                                v-html="item.help"
+                                            ></div>
+                                        </el-col>
+                                    </template>
+                                </el-form-item>
+                                <component
+                                    v-if="item.footerComponent"
+                                    :is="item.footerComponent.componentName"
+                                    :newAttrs="item.footerComponent"
+                                />
+                            </ItemIf>
+                        </template>
+                    </component>
+                </component>
+                <component
+                    :is="newAttrs.actions.fixed ? 'Affix' : 'div'"
+                    :offset-bottom="20"
+                >
+                    <div
+                        class="form-bottom-actions flex padding-tb"
+                        :class="{ 'form-bottom-actions-fixedxxx': newAttrs.actions.fixed , 'form-bottom-actions_center':newAttrs.actions.buttonCenter}"
+                    >
+                        <div>
+                            <component
+                                v-for="(component, index) in newAttrs.actions.addLeftActions"
+                                :key="component.componentName + index"
+                                :is="component.componentName"
+                                :attrs="component"
+                            />
+                        </div>
+                        <div class="flex custom_style" :class="{'custom_style_center':newAttrs.actions.buttonCenter}">
+                            <component
+                                v-for="(component, index) in newAttrs.actions.addRightActions"
+                                :key="component.componentName + index"
+                                :is="component.componentName"
+                                :attrs="component"
+                            />
+                            <el-button
+                                v-if="newAttrs.actions.cancelButton"
+                                :style="newAttrs.actions.cancelButton.style"
+                                :class="newAttrs.actions.cancelButton.className"
+                                :type="newAttrs.actions.cancelButton.type"
+                                :size="newAttrs.actions.cancelButton.size"
+                                :plain="newAttrs.actions.cancelButton.plain"
+                                :round="newAttrs.actions.cancelButton.round"
+                                :circle="newAttrs.actions.cancelButton.circle"
+                                :disabled="newAttrs.actions.cancelButton.disabled"
+                                :icon="newAttrs.actions.cancelButton.icon"
+                                :autofocus="newAttrs.actions.cancelButton.autofocus"
+                                :loading="loading"
+                                @click="onCancel"
+                            >
+                                <template v-if="newAttrs.actions.cancelButton.content">{{
+                                    newAttrs.actions.cancelButton.content
+                                    }}
+                                </template>
+                            </el-button>
+
+                            <el-button
+                                v-if="newAttrs.actions.submitButton"
+                                :style="newAttrs.actions.submitButton.style"
+                                :class="newAttrs.actions.submitButton.className"
+                                :type="newAttrs.actions.submitButton.type"
+                                :size="newAttrs.actions.submitButton.size"
+                                :plain="newAttrs.actions.submitButton.plain"
+                                :round="newAttrs.actions.submitButton.round"
+                                :circle="newAttrs.actions.submitButton.circle"
+                                :disabled="newAttrs.actions.submitButton.disabled"
+                                :icon="newAttrs.actions.submitButton.icon"
+                                :autofocus="newAttrs.actions.submitButton.autofocus"
+                                :loading="loading"
+                                @click="submitForm(newAttrs.ref || 'form')"
+                            >
+                                <template v-if="newAttrs.actions.submitButton.content">{{
+                                    newAttrs.actions.submitButton.content
+                                    }}
+                                </template>
+                            </el-button>
+                        </div>
+                    </div>
+                </component>
+            </el-form>
+        </component>
+        <component
+            v-if="newAttrs.bottom"
+            :is="newAttrs.bottom.componentName"
+            :attrs="newAttrs.bottom"
         />
     </div>
 </template>
@@ -213,7 +386,11 @@
                 loading: false,
                 init: false,
                 formData: null,
+                newAttrs:{}
             };
+        },
+        created(){
+            this.newAttrs = this._.cloneDeep(this.attrs);
         },
         mounted() {
             this.formData = this._.cloneDeep(this.attrs.defaultValues);
@@ -221,6 +398,18 @@
 
             this.$bus.on("resetFormData", () => {
                 this.formData = this._.cloneDeep(this.attrs.defaultValues);
+            });
+            //监听select是否调用了后台数据返回
+            this.$bus.on("changeTabData", (data) => {
+                console.log('更新后的tabsshuju',data);
+                // this.formData = this._.cloneDeep(this.data.defaultValues);
+                // newAttrs.ref || 'form'
+                // if(newAttrs.ref){
+                //     this.$refs[newAttrs.ref].resetFields()
+                // }else{
+                //     this.$refs.form.resetFields()
+                // }
+                this.newAttrs = data;
             });
         },
         destroyed() {
@@ -293,6 +482,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        console.log('触发校验');
                         this.loading = true;
                         const formatData = this._.pick(this.formData, this.ignoreKey);
                         if (this.isEdit) {

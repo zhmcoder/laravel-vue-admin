@@ -27,6 +27,7 @@
     :remote-method="remoteMethod"
     @change="onChange"
   >
+    <!-- @change="e=>console.log(e)" -->
     <el-option
       v-for="(item, index) in options"
       :key="index"
@@ -79,7 +80,10 @@ export default {
   },
   methods: {
     onChange(value) {
-        console.log(value);
+      // console.log(value);
+      // console.log('formItem',this.formItem);
+      // console.log('formData',this.formData);
+      // console.log('formItems',this.formItems);
       let resValue = value;
       if (typeof value === "object") {
         // 排除value = 0
@@ -87,6 +91,13 @@ export default {
       } else if (value === undefined) {
         resValue = null;
       }
+      // 查看是否能查询后台
+      // console.log(this.attrs);
+      if(this.attrs.isTab){
+        
+        this.queryTabsData(this.attrs.tabAction,{value:value})
+      }
+
       this.$emit("change", resValue);
       //deep admin start
       this.$emit("changeRelation", this.attrs,resValue);
@@ -110,6 +121,17 @@ export default {
             })
         }
         //deep admin end
+    },
+    // 查询后台的tabs数据
+    queryTabsData(url,params){
+      this.$http
+        .get(url, {
+          params: params
+        })
+        .then(res => {
+          console.log(res);
+          this.$bus.emit('changeTabData',res)
+        });
     },
     remoteMethod(query, next = null) {
       if (!next) {
