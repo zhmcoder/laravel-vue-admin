@@ -36,6 +36,10 @@ class Select extends Component
     protected $popperAppendToBody = true;
     protected $automaticDropdown = false;
 
+    protected $isTab = false;
+    protected $tabAction;
+
+
     /**
      * @var SelectOption[]
      */
@@ -301,6 +305,18 @@ class Select extends Component
             $this->options = $options;
         }
 
+        return $this;
+    }
+
+    public function isTab($isTab = true)
+    {
+        $this->isTab = $isTab;
+        return $this;
+    }
+
+    public function tabAction($tabAction)
+    {
+        $this->tabAction = $tabAction;
         return $this;
     }
 
