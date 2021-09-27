@@ -67,6 +67,11 @@ export default {
       }
     };
   },
+  watch:{
+    attrs(val){
+      this.options = val.options;
+    }
+  },
   computed: {
     depend() {
         console.log(this.form_data);

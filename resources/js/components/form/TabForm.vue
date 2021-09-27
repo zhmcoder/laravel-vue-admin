@@ -199,7 +199,7 @@
             },
             ignoreKey() {
                 return this._.map(
-                    this.attrs.formItems.filter(
+                    this.newAttrs.formItems.filter(
                         (e) => !e.ignoreEmpty || !isNull(this.formData[e.prop])
                     ),
                     "prop"
@@ -226,7 +226,8 @@
             });
             //监听select是否调用了后台数据返回
             this.$bus.on("changeTabData", (data) => {
-                this.newAttrs = data;
+                // this.formData = this._.cloneDeep(data.defaultValues);
+                this.newAttrs = this._.cloneDeep(data);
             });
         },
         destroyed() {
