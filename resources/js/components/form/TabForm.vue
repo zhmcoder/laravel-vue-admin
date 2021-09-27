@@ -211,7 +211,7 @@
                 loading: false,
                 init: false,
                 formData: null,
-                newAttrs:{}
+                newAttrs:this._.cloneDeep(this.attrs)
             };
         },
         created(){
@@ -267,12 +267,12 @@
                         //处理远程接口下拉
                         console.log('attrs');
                         console.log(this.attrs);
-                        this.attrs['formItems'].forEach(item => {
+                        this.newAttrs['formItems'].forEach(item => {
                             if (item['component'] && item['component']['isRelatedSelect']) {
                                 let select_related = item['component']['relatedSelectRef'];
                                 let select_related_value = data[select_related];
                                 data[select_related] = null;
-                                this.attrs['formItems'].forEach(select_item => {
+                                this.newAttrs['formItems'].forEach(select_item => {
                                     if (select_item['prop'] == select_related) {
                                         if (select_item['component'] && select_item['component']['remoteUrl']) {
                                             this.$http
