@@ -226,8 +226,22 @@
             });
             //监听select是否调用了后台数据返回
             this.$bus.on("changeTabData", (data) => {
-                // this.formData = this._.cloneDeep(data.defaultValues);
-                this.newAttrs = this._.cloneDeep(data);
+                // 保存原有的newAttrs里面的数据formItems
+                var orgFormItem = this._.cloneDeep(this.newAttrs).formItems;
+                var newData = this._.cloneDeep(data);
+                // 保存formItems
+                var formItems = newData.formItems;
+                var newFormItems = [];
+                formItems.forEach(item=>{
+                    orgFormItem.forEach(citem=>{
+                        if(item.tab == '基本信息' && citem.tab=='基本信息' && item.prop==citem.prop){
+                            item = citem;
+                        }
+                    })
+                    newFormItems.push(item);
+                })
+                newData.formItems = newFormItems;
+                this.newAttrs = newData;
             });
         },
         destroyed() {
