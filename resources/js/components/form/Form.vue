@@ -346,10 +346,10 @@
 				this.$refs[formName].resetFields();
 			},
 			onCancel() {
-				if (this.attrs.actions.cancelButton.afterEmit) {
-					this.attrs.actions.cancelButton.afterEmit.forEach(item=>{
-						this.$bus.emit(item.eventName,item.eventData);
-          })
+				if (this.attrs.actions.cancelButton.afterEmit && this.attrs.actions.cancelButton.afterEmit.length > 0) {
+					this.attrs.actions.cancelButton.afterEmit.forEach(item => {
+						this.$bus.emit(item.eventName, item.eventData);
+					})
 					this.closeDialog();
 				} else {
 					this.attrs.attrs.isDialog ? this.closeDialog() : this.$router.go(-1);
