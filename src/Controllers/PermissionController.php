@@ -2,7 +2,6 @@
 
 namespace SmallRuralDog\Admin\Controllers;
 
-
 use SmallRuralDog\Admin\Components\Attrs\SelectOption;
 use SmallRuralDog\Admin\Components\Form\Input;
 use SmallRuralDog\Admin\Components\Form\Select;
@@ -28,13 +27,18 @@ class PermissionController extends AdminController
 
         $grid = new Grid(new $permissionModel());
 
-        $grid->defaultSort('id', 'desc');
+        $grid->stripe()
+            ->defaultSort('id', 'desc')
+            ->perPage(env('PER_PAGE', 15))
+            ->size(env('TABLE_SIZE', ''))
+            ->border(env('TABLE_BORDER', false))
+            ->emptyText("暂无权限");
 
         $grid->quickSearch(['slug', 'name']);
         $grid->quickSearchPlaceholder('名称 / 标识');
-        $grid->column('id', 'ID')->sortable()->width('80px');
-        $grid->column('slug', "标识")->width(120);
-        $grid->column('name', "名称")->width(120);
+        $grid->column('id', '序号')->sortable()->width(120)->align('center');
+        $grid->column('slug', "标识")->width(150);
+        $grid->column('name', "名称")->width(150);
         $grid->column('http_method', "请求方式")->component(Tag::make());
         $grid->column('http_path', "路由")->customValue(function ($row, $value) {
             return explode("\n", $value);
@@ -42,9 +46,9 @@ class PermissionController extends AdminController
             return Tag::make();
         });
 
-
         $grid->actions(function (Grid\Actions $actions) {
             $actions->hideViewAction();
+            $actions->setDeleteAction(new Grid\Actions\DeleteDialogAction());
         });
 
         $grid->dialogForm($this->form()->isDialog()->className('p-15')->labelWidth('auto'), '500px', ['添加权限', '编辑权限']);
@@ -57,8 +61,7 @@ class PermissionController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
 
         $form = new Form(new $permissionModel());
-
-
+        $form->getActions()->buttonCenter();
 
         $form->item('slug', "标识")->required();
         $form->item('name', "名称")->required();
@@ -71,7 +74,6 @@ class PermissionController extends AdminController
                     ->options($this->getHttpMethodsOptions());
             });
         $form->item('http_path', "路由")->required()->component(Input::make()->textarea(8));
-
 
         return $form;
     }

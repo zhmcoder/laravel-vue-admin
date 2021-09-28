@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Controllers;
-
 
 use SmallRuralDog\Admin\Auth\Database\OperationLog;
 
@@ -13,31 +11,31 @@ use SmallRuralDog\Admin\Grid;
 
 class LogController extends AdminController
 {
-
-
     protected function grid()
     {
         $grid = new Grid(new OperationLog());
-        $grid->perPage(15)
-            ->quickSearch(['path'])
+        $grid->quickSearch(['path'])
             ->quickSearchPlaceholder("路径")
             ->selection()
-            ->defaultSort('id', 'desc')
             ->stripe()
+            ->defaultSort('id', 'desc')
+            ->perPage(env('PER_PAGE', 15))
+            ->size(env('TABLE_SIZE', ''))
+            ->border(env('TABLE_BORDER', false))
             ->emptyText("暂无日志");
 
-
-        $grid->column('id', "ID")->width("100")->sortable(true);
+        $grid->column('id', "序号")->width("120")->sortable(true)->align('center');
         $grid->column('user.avatar', '头像', 'user_id')->component(Avatar::make()->size('small'))->width(80);
         $grid->column('user.name', '用户', 'user_id')->help("操作用户")->width(100)->sortable();
-        $grid->column('method','请求方式')->width(100)->align('center')->component(Tag::make()->type(['GET' => 'info', 'POST' => 'success']));
-        $grid->column('path','路径')->help('操作URL')->width(200)->sortable();
-        $grid->column('ip','IP');
+        $grid->column('method', '请求方式')->width(100)->align('center')->component(Tag::make()->type(['GET' => 'info', 'POST' => 'success']));
+        $grid->column('path', '路径')->help('操作URL')->width(220)->sortable();
+        $grid->column('ip', 'IP');
         $grid->column('created_at', "操作时间")->width(200)->sortable();
 
         $grid->actions(function (Grid\Actions $actions) {
             $actions->hideEditAction();
             $actions->hideViewAction();
+            $actions->setDeleteAction(new Grid\Actions\DeleteDialogAction());
         })->toolbars(function (Grid\Toolbars $toolbars) {
             $toolbars->hideCreateButton();
         });
@@ -50,5 +48,4 @@ class LogController extends AdminController
 
         return $form;
     }
-
 }
