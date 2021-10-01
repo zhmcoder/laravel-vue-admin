@@ -19,6 +19,7 @@ use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickFilter;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
 use SmallRuralDog\Admin\Grid\Filter;
+use SmallRuralDog\Admin\Grid\LeftFilter;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
 use SmallRuralDog\Admin\Grid\Toolbars;
@@ -139,6 +140,7 @@ class Grid extends Component
         $this->toolbars = new Toolbars($this);
         $this->batchActions = new BatchActions();
         $this->filter = new Filter($this->model);
+        $this->leftFilter = new LeftFilter($this->model);
     }
 
     /**
@@ -536,6 +538,7 @@ class Grid extends Component
             $viewData['quickFilter'] = $this->quickFilter;
             //<!--deep admin end-->
             $viewData['filter'] = $this->filter->buildFilter();
+            $viewData['leftFilter'] = $this->leftFilter->buildFilter();
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
 
