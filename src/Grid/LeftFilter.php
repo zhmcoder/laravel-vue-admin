@@ -49,8 +49,6 @@ class LeftFilter
      */
     protected $scopes;
 
-    protected $position = 'top';
-
     protected static $supports = [
         'equal' => Filter\Equal::class,
         'notEqual' => Filter\NotEqual::class,
@@ -76,12 +74,6 @@ class LeftFilter
         $this->model = $model;
 
         $this->scopes = new Collection();
-    }
-
-    public function position($position = 'left'): LeftFilter
-    {
-        $this->position = $position;
-        return $this;
     }
 
     public function conditions()

@@ -39,6 +39,7 @@ class Filter
 
     protected $filters = [];
     protected $filterFormData = [];
+    protected $leftAction = '';
 
     protected $name = '';
 
@@ -136,6 +137,12 @@ class Filter
         return $this;
     }
 
+    public function leftAction($leftAction = '')
+    {
+        $this->leftAction = $leftAction;
+        return $this;
+    }
+
     public function execute($toArray = true)
     {
         if (method_exists($this->model->eloquent(), 'paginate')) {
@@ -192,6 +199,7 @@ class Filter
         return [
             'filters' => $this->filters,
             'filterFormData' => $this->filterFormData,
+            'leftAction' => $this->leftAction,
         ];
     }
 
