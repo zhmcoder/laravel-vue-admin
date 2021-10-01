@@ -40,6 +40,7 @@ class Filter
     protected $filters = [];
     protected $filterFormData = [];
     protected $leftAction = '';
+    protected $reload = 'grid';
 
     protected $name = '';
 
@@ -143,6 +144,12 @@ class Filter
         return $this;
     }
 
+    public function reload($reload = 'grid')
+    {
+        $this->reload = $reload;
+        return $this;
+    }
+
     public function execute($toArray = true)
     {
         if (method_exists($this->model->eloquent(), 'paginate')) {
@@ -200,6 +207,7 @@ class Filter
             'filters' => $this->filters,
             'filterFormData' => $this->filterFormData,
             'leftAction' => $this->leftAction,
+            'reload' => $this->reload,
         ];
     }
 
