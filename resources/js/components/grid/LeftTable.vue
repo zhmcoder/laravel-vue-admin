@@ -1,7 +1,52 @@
 <template>
   <div class="grid-container">
     <el-container>
-       <!-- v-if="attrs.leftStyle" -->
+      <el-header>
+        <div ref="topView">
+          <component
+            v-if="attrs.top"
+            :is="attrs.top.componentName"
+            :attrs="attrs.top"
+          />
+          <el-card
+            shadow="never"
+            :body-style="{ padding: 0 }"
+            class="margin-bottom-sm"
+            v-if="attrs.leftFilter.filters.length > 0"
+          >
+            <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
+              <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
+                <el-form-item v-if="attrs.quickSearch">
+                  <el-input
+                    v-model="quickSearch"
+                    :placeholder="attrs.quickSearch.placeholder"
+                    :clearable="true"
+                    @clear="getData"
+                    @keyup.enter.native="getData"
+                  ></el-input>
+                </el-form-item>
+
+                <el-form-item
+                  v-for="(item, index) in attrs.leftFilter.filters"
+                  :key="index"
+                  :label="item.label"
+                >
+                  <ItemDiaplsy
+                    v-model="filterFormData[item.column]"
+                    :form-item="item"
+                    :form-items="attrs.filters"
+                    :form-data="filterFormData"
+                  />
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
+                  <el-button @click="onFilterReset">重置</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-card>
+        </div>
+      </el-header>
       <el-aside :width="attrs.leftStyleWidth" class="left-tyle">
         <div ref="topView">
           <component
@@ -48,52 +93,6 @@
           </div>
         </div>
       </el-aside>
-      <el-header>
-        <div ref="topView">
-          <component
-            v-if="attrs.top"
-            :is="attrs.top.componentName"
-            :attrs="attrs.top"
-          />
-          <el-card
-            shadow="never"
-            :body-style="{ padding: 0 }"
-            class="margin-bottom-sm"
-            v-if="attrs.filter.filters.length > 0"
-          >
-            <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
-              <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
-                <el-form-item v-if="attrs.quickSearch">
-                  <el-input
-                    v-model="quickSearch"
-                    :placeholder="attrs.quickSearch.placeholder"
-                    :clearable="true"
-                    @clear="getData"
-                    @keyup.enter.native="getData"
-                  ></el-input>
-                </el-form-item>
-
-                <el-form-item
-                  v-for="(item, index) in attrs.filter.filters"
-                  :key="index"
-                  :label="item.label"
-                >
-                  <ItemDiaplsy
-                    v-model="filterFormData[item.column]"
-                    :form-item="item"
-                    :form-items="attrs.filters"
-                    :form-data="filterFormData"
-                  />
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
-                  <el-button @click="onFilterReset">重置</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-card>
-        </div>
-      </el-header>
       <el-main>
         <el-card shadow="never" :body-style="{ padding: 0 }" v-loading="loading">
           <div class="bottom-border" ref="toolbarsView" v-if="attrs.toolbars.show">
