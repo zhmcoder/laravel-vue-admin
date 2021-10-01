@@ -7,6 +7,7 @@ Vue.component("Content", require("@/components/layout/Content").default);
 Vue.component("Row", require("@/components/layout/Row").default);
 Vue.component("Column", require("@/components/layout/Column").default);
 Vue.component("Grid", require("@/components/grid/Table").default);
+Vue.component("LeftGrid", require("@/components/grid/LeftTable").default);
 Vue.component("Tree", require("@/components/grid/Tree").default);
 Vue.component("Form", require("@/components/form/Form").default);
 Vue.component("TabForm", require("@/components/form/TabForm").default);
