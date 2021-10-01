@@ -143,6 +143,11 @@ class Grid extends Component
         $this->leftFilter = new LeftFilter($this->model);
     }
 
+    public function getLeftFilter(): array
+    {
+        return $this->leftFilter->buildFilter();
+    }
+
     /**
      * 获取自定义数据模型
      * @return Model|Builder
