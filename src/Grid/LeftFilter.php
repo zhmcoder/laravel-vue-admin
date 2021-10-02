@@ -39,6 +39,7 @@ class LeftFilter
 
     protected $filters = [];
     protected $filterFormData = [];
+    protected $width = '100px';
 
     protected $name = '';
 
@@ -178,6 +179,12 @@ class LeftFilter
         return $this->filters;
     }
 
+    public function width($withd = '100px')
+    {
+        $this->width = $withd;
+        return $this;
+    }
+
 
     /**
      * @return array
@@ -192,6 +199,7 @@ class LeftFilter
         return [
             'filters' => $this->filters,
             'filterFormData' => $this->filterFormData,
+            'width' => $this->width,
         ];
     }
 
