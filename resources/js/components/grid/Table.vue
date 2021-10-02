@@ -1,322 +1,271 @@
 <template>
   <div class="grid-container">
-    <el-container>
-      <el-aside :width="attrs.leftStyleWidth" v-if="attrs.leftStyle" class="left-tyle">
-        <div ref="topView">
-          <component
-            v-if="attrs.top"
-            :is="attrs.top.componentName"
-            :attrs="attrs.top"
-          />
-          <div
-            shadow="never"
-            :body-style="{ padding: 0 }"
-            class="margin-bottom-sm"
-            v-if="attrs.filter.filters.length > 0"
-          >
-            <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
-              <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
-                <el-form-item v-if="attrs.quickSearch">
-                  <el-input
-                    v-model="quickSearch"
-                    :placeholder="attrs.quickSearch.placeholder"
-                    :clearable="true"
-                    @clear="getData"
-                    @keyup.enter.native="getData"
-                  ></el-input>
-                </el-form-item>
+    <div ref="topView">
+      <component
+        v-if="attrs.top"
+        :is="attrs.top.componentName"
+        :attrs="attrs.top"
+      />
+      <el-card
+        shadow="never"
+        :body-style="{ padding: 0 }"
+        class="margin-bottom-sm"
+        v-if="attrs.filter.filters.length > 0"
+      >
+        <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
+          <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
+            <el-form-item v-if="attrs.quickSearch">
+              <el-input
+                v-model="quickSearch"
+                :placeholder="attrs.quickSearch.placeholder"
+                :clearable="true"
+                @clear="getData"
+                @keyup.enter.native="getData"
+              ></el-input>
+            </el-form-item>
 
-                <el-form-item
-                  v-for="(item, index) in attrs.filter.filters"
-                  :key="index"
-                  :label="item.label"
-                >
-                  <ItemDiaplsy
-                    v-model="filterFormData[item.column]"
-                    :form-item="item"
-                    :form-items="attrs.filters"
-                    :form-data="filterFormData"
-                  />
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
-                  <el-button @click="onFilterReset">重置</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </div>
-      </el-aside>
-      <el-header v-else>
-        <div ref="topView">
-          <component
-            v-if="attrs.top"
-            :is="attrs.top.componentName"
-            :attrs="attrs.top"
-          />
-          <el-card
-            shadow="never"
-            :body-style="{ padding: 0 }"
-            class="margin-bottom-sm"
-            v-if="attrs.filter.filters.length > 0"
-          >
-            <div class="filter-form" :class="{'filter-form-style-center':attrs.filterFormCenter}">
-              <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
-                <el-form-item v-if="attrs.quickSearch">
-                  <el-input
-                    v-model="quickSearch"
-                    :placeholder="attrs.quickSearch.placeholder"
-                    :clearable="true"
-                    @clear="getData"
-                    @keyup.enter.native="getData"
-                  ></el-input>
-                </el-form-item>
-
-                <el-form-item
-                  v-for="(item, index) in attrs.filter.filters"
-                  :key="index"
-                  :label="item.label"
-                >
-                  <ItemDiaplsy
-                    v-model="filterFormData[item.column]"
-                    :form-item="item"
-                    :form-items="attrs.filters"
-                    :form-data="filterFormData"
-                  />
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
-                  <el-button @click="onFilterReset">重置</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-card>
-        </div>
-      </el-header>
-      <el-main>
-        <el-card shadow="never" :body-style="{ padding: 0 }" v-loading="loading">
-          <div class="bottom-border" ref="toolbarsView" v-if="attrs.toolbars.show">
-            <div class="grid-top-container">
-              <div class="grid-top-container-left">
-                <BatchActions
-                  :routers="attrs.routers"
-                  :key_name="attrs.keyName"
-                  :rows="selectionRows"
-                  :actions="attrs.batchActions"
-                  v-if="attrs.selection"
-                />
-                <div
-                  class="search-view mr-10"
-                  v-if="attrs.quickSearch && attrs.filter.filters.length <= 0"
-                >
-                  <el-input
-                    v-model="quickSearch"
-                    :placeholder="attrs.quickSearch.placeholder"
-                    :clearable="true"
-                    @clear="getData"
-                    @keyup.enter.native="getData"
-                  >
-                    <el-button @click="getData" :loading="loading" slot="append"
-                      >搜索</el-button
-                    >
-                  </el-input>
-                </div>
-                <div class="flex-c">
-                  <component
-                    v-for="(component, index) in attrs.toolbars.left"
-                    :key="component.componentName + index"
-                    :is="component.componentName"
-                    :attrs="component"
-                  />
-
-                    <el-radio-group
-                        v-if="attrs.quickFilter"
-                        v-model="quickFilter"
-                        :style="attrs.quickFilter.style"
-                        :class="attrs.quickFilter.className"
-                        :disabled="attrs.quickFilter.disabled"
-                        @change="getData"
-                    >
-                        <el-radio-button
-                            v-if="attrs.quickFilter"
-                            v-for="(radio, index) in attrs.quickFilter.options"
-                            :style="radio.style"
-                            :class="radio.className"
-                            :key="index"
-                            :label="radio.label"
-                            :disabled="radio.disabled"
-                            :border="radio.border"
-                            :size="radio.size"
-                        >{{ radio.title }}</el-radio-button>
-                    </el-radio-group>
-
-                </div>
-              </div>
-              <div class="grid-top-container-right">
-                <component
-                  v-for="(component, index) in attrs.toolbars.right"
-                  :key="component.componentName + index"
-                  :is="component.componentName"
-                  :attrs="component"
-                  :filterData="filterFormData"
-                />
-                  <!-- deep-admin filterData -->
-                <el-divider
-                  direction="vertical"
-                  v-if="!attrs.attributes.hideCreateButton"
-                ></el-divider>
-                <div class="icon-actions">
-                  <el-dropdown trigger="click">
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="密度"
-                      placement="top"
-                    >
-                      <i class="el-icon-rank hover"></i>
-                    </el-tooltip>
-                    <el-dropdown-menu slot="dropdown">
-                      <a @click="attrs.attributes.size = null">
-                        <el-dropdown-item>正常</el-dropdown-item>
-                      </a>
-                      <a @click="attrs.attributes.size = 'medium'">
-                        <el-dropdown-item>中等</el-dropdown-item>
-                      </a>
-                      <a @click="attrs.attributes.size = 'small'">
-                        <el-dropdown-item>紧凑</el-dropdown-item>
-                      </a>
-                      <a @click="attrs.attributes.size = 'mini'">
-                        <el-dropdown-item>迷你</el-dropdown-item>
-                      </a>
-                    </el-dropdown-menu>
-                  </el-dropdown>
-
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="刷新"
-                    placement="top"
-                  >
-                    <i class="el-icon-refresh hover" @click="getData"></i>
-                  </el-tooltip>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <el-table
-              :ref="attrs.ref || 'table'"
-              :data="tableData"
-              :row-key="attrs.attributes.rowKey"
-              :height="gridHeight"
-              :show-summary="attrs.attributes.showSummary"
-              :max-height="attrs.attributes.maxHeight"
-              :default-sort="default_sort_get"
-              :stripe="attrs.attributes.stripe"
-              :border="attrs.attributes.border"
-              :size="attrs.attributes.size"
-              :fit="attrs.attributes.fit"
-              :show-header="attrs.attributes.showHeader"
-              :highlight-current-row="attrs.attributes.highlightCurrentRow"
-              :empty-text="attrs.attributes.emptyText"
-              :tooltip-effect="attrs.attributes.tooltipEffect"
-              :default-expand-all="attrs.attributes.defaultExpandAll"
-              @sort-change="onTableSortChange"
-              @selection-change="onTableselectionChange"
+            <el-form-item
+              v-for="(item, index) in attrs.filter.filters"
+              :key="index"
+              :label="item.label"
             >
-              <el-table-column
-                v-if="attrs.attributes.selection"
-                align="center"
-                type="selection"
-              ></el-table-column>
-              <el-table-column
-                v-if="attrs.tree"
-                align="center"
-                width="50"
-              ></el-table-column>
-              <template v-for="column in attrs.columnAttributes">
-                <el-table-column
-                  :type="column.type"
-                  :key="column.prop"
-                  :column-key="column.columnKey"
-                  :prop="column.prop"
-                  :label="column.label"
-                  :width="column.width"
-                  :sortable="column.sortable"
-                  :help="column.help"
-                  :align="column.align"
-                  :fixed="column.fixed"
-                  :header-align="column.headerAlign"
-                >
-                  <template slot="header" slot-scope="scope">
-                    <span>{{ scope.column.label }}</span>
-                    <el-tooltip
-                      placement="top"
-                      v-if="column.help"
-                      :content="column.help"
-                    >
-                      <i class="el-icon-question hover"></i>
-                    </el-tooltip>
-                  </template>
-                  <template slot-scope="scope">
-                    <ColumnDisplay
-                      :scope="scope"
-                      :columns="attrs.columnAttributes"
-                      @downMove="downMove"
-                      @upMove="upMove"
-                    />
-                  </template>
-                </el-table-column>
-              </template>
-              <el-table-column
-                v-if="!attrs.attributes.hideActions"
-                :label="attrs.attributes.actionLabel"
-                prop="grid_actions"
-                :fixed="attrs.attributes.actionFixed"
-                :min-width="attrs.attributes.actionWidth"
-                :align="attrs.attributes.actionAlign"
-              >
-                <template slot="header"></template>
-                <template slot-scope="scope">
-                  <Actions
-                    v-if="scope.row.grid_actions && !scope.row.grid_actions.hide"
-                    :action_list="scope.row.grid_actions.data"
-                    :scope="scope"
-                    :key_name="attrs.keyName"
-                  />
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-          <div class="table-page padding-xs" v-if="!attrs.hidePage">
-            <el-pagination
-              :layout="attrs.pageLayout"
-              :hide-on-single-page="false"
-              :total="pageData.total"
-              :page-size="pageData.pageSize"
-              :current-page="pageData.currentPage"
-              :page-sizes="attrs.pageSizes"
-              :background="attrs.pageBackground"
-              @size-change="onPageSizeChange"
-              @current-change="onPageCurrentChange"
+              <ItemDiaplsy
+                v-model="filterFormData[item.column]"
+                :form-item="item"
+                :form-items="attrs.filters"
+                :form-data="filterFormData"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
+              <el-button @click="onFilterReset">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
+    </div>
+
+    <el-card shadow="never" :body-style="{ padding: 0 }" v-loading="loading">
+      <div class="bottom-border" ref="toolbarsView" v-if="attrs.toolbars.show">
+        <div class="grid-top-container">
+          <div class="grid-top-container-left">
+            <BatchActions
+              :routers="attrs.routers"
+              :key_name="attrs.keyName"
+              :rows="selectionRows"
+              :actions="attrs.batchActions"
+              v-if="attrs.selection"
             />
+            <div
+              class="search-view mr-10"
+              v-if="attrs.quickSearch && attrs.filter.filters.length <= 0"
+            >
+              <el-input
+                v-model="quickSearch"
+                :placeholder="attrs.quickSearch.placeholder"
+                :clearable="true"
+                @clear="getData"
+                @keyup.enter.native="getData"
+              >
+                <el-button @click="getData" :loading="loading" slot="append"
+                  >搜索</el-button
+                >
+              </el-input>
+            </div>
+            <div class="flex-c">
+              <component
+                v-for="(component, index) in attrs.toolbars.left"
+                :key="component.componentName + index"
+                :is="component.componentName"
+                :attrs="component"
+              />
+
+                <el-radio-group
+                    v-if="attrs.quickFilter"
+                    v-model="quickFilter"
+                    :style="attrs.quickFilter.style"
+                    :class="attrs.quickFilter.className"
+                    :disabled="attrs.quickFilter.disabled"
+                    @change="getData"
+                >
+                    <el-radio-button
+                        v-if="attrs.quickFilter"
+                        v-for="(radio, index) in attrs.quickFilter.options"
+                        :style="radio.style"
+                        :class="radio.className"
+                        :key="index"
+                        :label="radio.label"
+                        :disabled="radio.disabled"
+                        :border="radio.border"
+                        :size="radio.size"
+                    >{{ radio.title }}</el-radio-button>
+                </el-radio-group>
+
+            </div>
           </div>
-        </el-card>
-        <component
-          v-if="attrs.bottom"
-          :is="attrs.bottom.componentName"
-          :attrs="attrs.bottom"
+          <div class="grid-top-container-right">
+            <component
+              v-for="(component, index) in attrs.toolbars.right"
+              :key="component.componentName + index"
+              :is="component.componentName"
+              :attrs="component"
+              :filterData="filterFormData"
+            />
+              <!-- deep-admin filterData -->
+            <el-divider
+              direction="vertical"
+              v-if="!attrs.attributes.hideCreateButton"
+            ></el-divider>
+            <div class="icon-actions">
+              <el-dropdown trigger="click">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="密度"
+                  placement="top"
+                >
+                  <i class="el-icon-rank hover"></i>
+                </el-tooltip>
+                <el-dropdown-menu slot="dropdown">
+                  <a @click="attrs.attributes.size = null">
+                    <el-dropdown-item>正常</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'medium'">
+                    <el-dropdown-item>中等</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'small'">
+                    <el-dropdown-item>紧凑</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'mini'">
+                    <el-dropdown-item>迷你</el-dropdown-item>
+                  </a>
+                </el-dropdown-menu>
+              </el-dropdown>
+
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="刷新"
+                placement="top"
+              >
+                <i class="el-icon-refresh hover" @click="getData"></i>
+              </el-tooltip>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <el-table
+          :ref="attrs.ref || 'table'"
+          :data="tableData"
+          :row-key="attrs.attributes.rowKey"
+          :height="gridHeight"
+          :show-summary="attrs.attributes.showSummary"
+          :max-height="attrs.attributes.maxHeight"
+          :default-sort="default_sort_get"
+          :stripe="attrs.attributes.stripe"
+          :border="attrs.attributes.border"
+          :size="attrs.attributes.size"
+          :fit="attrs.attributes.fit"
+          :show-header="attrs.attributes.showHeader"
+          :highlight-current-row="attrs.attributes.highlightCurrentRow"
+          :empty-text="attrs.attributes.emptyText"
+          :tooltip-effect="attrs.attributes.tooltipEffect"
+          :default-expand-all="attrs.attributes.defaultExpandAll"
+          @sort-change="onTableSortChange"
+          @selection-change="onTableselectionChange"
+        >
+          <el-table-column
+            v-if="attrs.attributes.selection"
+            align="center"
+            type="selection"
+          ></el-table-column>
+          <el-table-column
+            v-if="attrs.tree"
+            align="center"
+            width="50"
+          ></el-table-column>
+          <template v-for="column in attrs.columnAttributes">
+            <el-table-column
+              :type="column.type"
+              :key="column.prop"
+              :column-key="column.columnKey"
+              :prop="column.prop"
+              :label="column.label"
+              :width="column.width"
+              :sortable="column.sortable"
+              :help="column.help"
+              :align="column.align"
+              :fixed="column.fixed"
+              :header-align="column.headerAlign"
+            >
+              <template slot="header" slot-scope="scope">
+                <span>{{ scope.column.label }}</span>
+                <el-tooltip
+                  placement="top"
+                  v-if="column.help"
+                  :content="column.help"
+                >
+                  <i class="el-icon-question hover"></i>
+                </el-tooltip>
+              </template>
+              <template slot-scope="scope">
+                <ColumnDisplay
+                  :scope="scope"
+                  :columns="attrs.columnAttributes"
+                  @downMove="downMove"
+                  @upMove="upMove"
+                />
+              </template>
+            </el-table-column>
+          </template>
+          <el-table-column
+            v-if="!attrs.attributes.hideActions"
+            :label="attrs.attributes.actionLabel"
+            prop="grid_actions"
+            :fixed="attrs.attributes.actionFixed"
+            :min-width="attrs.attributes.actionWidth"
+            :align="attrs.attributes.actionAlign"
+          >
+            <template slot="header"></template>
+            <template slot-scope="scope">
+              <Actions
+                v-if="scope.row.grid_actions && !scope.row.grid_actions.hide"
+                :action_list="scope.row.grid_actions.data"
+                :scope="scope"
+                :key_name="attrs.keyName"
+              />
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="table-page padding-xs" v-if="!attrs.hidePage">
+        <el-pagination
+          :layout="attrs.pageLayout"
+          :hide-on-single-page="false"
+          :total="pageData.total"
+          :page-size="pageData.pageSize"
+          :current-page="pageData.currentPage"
+          :page-sizes="attrs.pageSizes"
+          :background="attrs.pageBackground"
+          @size-change="onPageSizeChange"
+          @current-change="onPageCurrentChange"
         />
-        <DialogForm
-          ref="DialogGridFrom"
-          v-if="attrs.isDialogForm"
-          :dialogFormWidth="getDialogFormData(1)"
-          :dialogForm="getDialogFormData(2)"
-          :dialogTitle="getDialogFormData(3)"
-          :dialogTitleCenter="attrs.dialogTitleCenter"
-        />
-      </el-main>
-    </el-container>
+      </div>
+    </el-card>
+    <component
+      v-if="attrs.bottom"
+      :is="attrs.bottom.componentName"
+      :attrs="attrs.bottom"
+    />
+    <DialogForm
+      ref="DialogGridFrom"
+      v-if="attrs.isDialogForm"
+      :dialogFormWidth="getDialogFormData(1)"
+      :dialogForm="getDialogFormData(2)"
+      :dialogTitle="getDialogFormData(3)"
+      :dialogTitleCenter="attrs.dialogTitleCenter"
+    />
   </div>
 </template>
 
