@@ -48,10 +48,9 @@
           </el-card>
         </div>
       </el-header>
-      <!-- <el-aside :width="attrs.leftStyleWidth" class="left-style"> -->
       <!-- 左侧form表单 -->
       <el-container>
-        <el-aside width="250px" class="left-style">
+        <el-aside :width="attrs.leftFilter.width" class="left-style">
           <div ref="topView">
             <component
               v-if="attrs.top"
