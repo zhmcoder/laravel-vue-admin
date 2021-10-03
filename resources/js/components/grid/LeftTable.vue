@@ -520,6 +520,7 @@ export default {
             ...this.q_search,
             ...this.quick_filter, //deep admin
             ...this.leftFilterFormData,
+            ...this.filterFormData,
             ...this.tabsSelectdata,
             ...this.$route.query,
           },
@@ -835,6 +836,9 @@ export default {
     .el-form-item{
       margin-top:5px;
     }
+  }
+  .el-form-item__label{
+    padding: 0 10px 0 0 !important;
   }
 }
 </style>
