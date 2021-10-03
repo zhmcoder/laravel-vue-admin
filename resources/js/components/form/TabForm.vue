@@ -30,12 +30,13 @@
                 :size="newAttrs.attrs.size"
                 :disabled="newAttrs.attrs.disabled"
             >
-                <component :is="newAttrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="newAttrs.attrs.hideTab ? null : newAttrs.attrs.tabPosition ">
+                <component :is="newAttrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="newAttrs.attrs.hideTab ? null : newAttrs.attrs.tabPosition" v-model="activeName">
                     <component
                         :is="newAttrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
                         :label="tab"
                         v-for="tab in newAttrs.tabs"
                         :key="tab"
+                        :name="tab"
                     >
                         <template v-for="(item, index) in newAttrs.formItems">
                             <ItemIf
@@ -211,11 +212,13 @@
                 loading: false,
                 init: false,
                 formData: null,
-                newAttrs:this._.cloneDeep(this.attrs)
+                newAttrs:this._.cloneDeep(this.attrs),
+                activeName:null
             };
         },
         created(){
             this.newAttrs = this._.cloneDeep(this.attrs);
+            this.activeName = this.attrs.tabValue;
         },
         mounted() {
             this.formData = this._.cloneDeep(this.attrs.defaultValues);
