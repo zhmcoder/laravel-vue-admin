@@ -101,6 +101,7 @@ class Form extends Component
 
     private $top;
     private $bottom;
+    private $tabValue = '基本信息';
 
     protected $actions;
 
@@ -267,6 +268,12 @@ class Form extends Component
     public function action($action)
     {
         $this->action = $action;
+        return $this;
+    }
+
+    public function tabValue($tabValue = '基本信息')
+    {
+        $this->tabValue = $tabValue;
         return $this;
     }
 
@@ -843,7 +850,8 @@ class Form extends Component
             'formRefData' => $this->FormRefDataBuild(),
             'top' => $this->top,
             'bottom' => $this->bottom,
-            'actions' => $this->actions->builderActions()
+            'actions' => $this->actions->builderActions(),
+            'tabValue' => $this->tabValue,
         ];
 
     }
