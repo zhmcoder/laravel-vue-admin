@@ -83,7 +83,7 @@ export default {
                   })
                   .then(res => {
                       const data = res.data.data || res.data;
-                      if (data.length) {
+                      // if (data && data.length) {
                           let length = form_item['component']['options'].length;
                           for(let i=0;i<length;i++){
                               form_item['component']['options'].splice(0,1);
@@ -96,9 +96,11 @@ export default {
                                   this.formData[item]='';
                               })
                           }
-                          form_item['component']['options'].push(...data);
+                          if(data && data.length){
+                            form_item['component']['options'].push(...data);
+                          }
                           form_item['component'].paginate=0;
-                      }
+                      // }
                   });
           }
       },
