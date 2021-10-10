@@ -90,7 +90,7 @@ trait HasQuickFilter
         if ($query == '' || $query == null) {
             return;
         }
-        if (strpos($query, 'default_') !== false) {
+        if (strpos($this->quickFilter->filterKey, 'default_') !== false) {
             return;
         }
         $this->addWhereBasicBinding($this->quickFilter->filterKey, $this->or, $this->operator, $query);
