@@ -502,6 +502,7 @@ export default {
       this.getData();
     },
     downMove(sort) {
+      this.tableData = this.tableData.sort(this.compare('sort',false));
       // 当前操作项index
       let index = this.tableData.findIndex(function(item) {
           return item.sort == sort;
@@ -526,6 +527,7 @@ export default {
       }
     },
     upMove(sort) {
+      this.tableData = this.tableData.sort(this.compare('sort',false));
       // 当前操作项index
       let index = this.tableData.findIndex(function(item) {
           return item.sort == sort;
@@ -548,6 +550,25 @@ export default {
         this.$set(this.tableData, index, downItem);
         this.setSort(this.attrs.columnAttributes[cIndex].displayComponentAttrs.setSortAction, 'up', curItem.id, downItem.id, false)
       }
+    },
+    compare(attr,rev){
+        //第二个参数没有传递 默认升序排列
+        if(rev ==  undefined){
+            rev = 1;
+        }else{
+            rev = (rev) ? 1 : -1;
+        }
+        return function(a,b){
+            a = a[attr];
+            b = b[attr];
+            if(a < b){
+                return rev * -1;
+            }
+            if(a > b){
+                return rev * 1;
+            }
+            return 0;
+        }
     },
     setSort(url, type, curId, changeId, refreshTable) {
       let param = {
