@@ -16,6 +16,7 @@ import E from "wangeditor";
 import { FormItemComponent } from "@/mixins.js";
 export default {
   mixins: [FormItemComponent],
+  props: ["value"],
   data() {
     return {
       editor: null,
@@ -58,6 +59,13 @@ export default {
     this.$bus.on("EditDataLoadingCompleted", () => {
       this.editor && this.editor.txt.html(this.value);
     });
+  },
+  watch:{
+    value(value){
+      if (value !== this.editor.txt.html()) {
+        this.editor.txt.html(String(this.value));
+      }
+    }
   },
   destroyed() {
     try {
