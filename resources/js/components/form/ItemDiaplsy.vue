@@ -14,6 +14,7 @@
       <component
         v-if="attrs"
         :value="value"
+        :defaultPropValues="defaultPropValues"
         :is="attrs.componentName"
         :attrs="attrs"
         :form-data="formData"
@@ -49,6 +50,10 @@ export default {
     formItem: Object,
     //当前表单数据
     formData: Object,
+    //更改select后的默认初始值
+    defaultPropValues:{
+      default:null
+    }
   },
   data() {
     return {};

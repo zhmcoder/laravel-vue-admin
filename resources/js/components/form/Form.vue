@@ -70,6 +70,7 @@
                             v-model="
                             formData[item.relationName][item.relationValueKey]
                           "
+                            :default-prop-values="defaultFormData[item.relationName][item.relationValueKey]"
                             :form-item="item"
                             :form-items="attrs.formItems"
                             :form-data="formData"
@@ -78,6 +79,7 @@
                       <template v-else>
                         <ItemDiaplsy
                             v-model="formData[item.prop]"
+                            :default-prop-values="defaultFormData[item.prop]"
                             :form-item="item"
                             :form-items="attrs.formItems"
                             :form-data="formData"
@@ -211,7 +213,8 @@
 			return {
 				loading: false,
 				init: false,
-				formData: null
+				formData: null,
+        defaultFormData:{}
 			};
 		},
 		mounted() {
@@ -221,6 +224,9 @@
 			this.$bus.on("resetFormData", () => {
 				this.formData = this._.cloneDeep(this.attrs.defaultValues);
 			});
+      this.$bus.on('setDefaultFormData',(data)=>{
+        this.defaultFormData = data;
+      })
 		},
 		destroyed() {
 			this.formData = this._.cloneDeep(this.attrs.defaultValues);
