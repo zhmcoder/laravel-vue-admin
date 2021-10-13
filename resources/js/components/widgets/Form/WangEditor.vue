@@ -16,7 +16,7 @@ import E from "wangeditor";
 import { FormItemComponent } from "@/mixins.js";
 export default {
   mixins: [FormItemComponent],
-  props: ["value"],
+  props: ["defaultPropValues"],
   data() {
     return {
       editor: null,
@@ -61,11 +61,11 @@ export default {
     });
   },
   watch:{
-    value(value){
-      if (value !== this.editor.txt.html()) {
-        this.editor.txt.html(String(this.value));
+    defaultPropValues(value){
+      if ((value !== this.editor.txt.html()) && value) {
+        this.editor.txt.html(JSON.parse(JSON.stringify(String(value))));
       }
-    }
+    },
   },
   destroyed() {
     try {

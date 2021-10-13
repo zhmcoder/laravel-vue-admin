@@ -116,7 +116,7 @@ export default {
                 }else{
                     this.formData[item]='';
                 }
-
+                this.$bus.emit('setDefaultFormData',JSON.parse(JSON.stringify(this.formData)))
             })
         }
         //deep admin end
