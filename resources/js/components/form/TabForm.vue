@@ -70,6 +70,8 @@
                                                     v-model="
                             formData[item.relationName][item.relationValueKey]
                           "
+                            :default-prop-values="defaultFormData[item.relationName][item.relationValueKey]"
+
                                                     :form-item="item"
                                                     :form-items="newAttrs.formItems"
                                                     :form-data="formData"
@@ -78,6 +80,7 @@
                                             <template v-else>
                                                 <ItemDiaplsy
                                                     v-model="formData[item.prop]"
+                                                    :default-prop-values="defaultFormData[item.prop]"
                                                     :form-item="item"
                                                     :form-items="newAttrs.formItems"
                                                     :form-data="formData"
@@ -213,7 +216,8 @@
                 init: false,
                 formData: null,
                 newAttrs:this._.cloneDeep(this.attrs),
-                activeName:null
+                activeName:null,
+                defaultFormData:{}
             };
         },
         created(){
@@ -227,6 +231,10 @@
             this.$bus.on("resetFormData", () => {
                 this.formData = this._.cloneDeep(this.attrs.defaultValues);
             });
+            this.$bus.on('setDefaultFormData',(data)=>{
+                this.defaultFormData = data;
+            });
+
             //监听select是否调用了后台数据返回
             this.$bus.on("changeTabData", (data) => {
                 // 保存原有的newAttrs里面的数据formItems
