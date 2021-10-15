@@ -16,6 +16,11 @@ class EditAction extends BaseRowAction
 
     protected $content = "编辑";
 
+    /**
+     * @var int 1表示气泡确认框样式，2表示消息提示框样式
+     */
+    protected $tipsType = 1;
+
     protected $isDialog = false;
 
     /**
