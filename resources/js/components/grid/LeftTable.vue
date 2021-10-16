@@ -437,6 +437,11 @@ export default {
 		this.$nextTick(() => {
 			this.$refs.table.doLayout()
 		})
+    this.$bus.on("showDialogGridFrom", ({ isShow, key , addOrEdit }) => {
+      this.addOrEdit = addOrEdit || this.addOrEdit ;
+      this.$refs["DialogGridFrom"].dialogVisible = isShow;
+      this.$refs["DialogGridFrom"].key = key;
+    });
 	},
   destroyed() {
     //取消监听
