@@ -30,7 +30,7 @@
                 :size="newAttrs.attrs.size"
                 :disabled="newAttrs.attrs.disabled"
             >
-                <component :is="newAttrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="newAttrs.attrs.hideTab ? null : newAttrs.attrs.tabPosition" v-model="activeName">
+                <component :is="newAttrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="newAttrs.attrs.hideTab ? null : newAttrs.attrs.tabPosition" v-model="activeName" @tab-click="handleClick">
                     <component
                         :is="newAttrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
                         :label="tab"
@@ -38,69 +38,71 @@
                         :key="tab"
                         :name="tab"
                     >
-                        <template v-for="(item, index) in newAttrs.formItems">
-                            <ItemIf
-                                v-if="tab == item.tab"
-                                :key="index"
-                                :form_item="item"
-                                :form_items="newAttrs.formItems"
-                                :form_data="formData"
-                            >
-                                <component
-                                    v-if="item.topComponent"
-                                    :is="item.topComponent.componentName"
-                                    :attrs="item.topComponent"
-                                />
-
-                                <el-form-item
-                                    :prop="item.prop"
-                                    :label-width="item.labelWidth"
-                                    :error="item.error"
-                                    :show-message="item.showMessage"
-                                    :inline-message="item.inlineMessage"
-                                    :size="item.size"
+                        <template v-if="attrs.attrs.hideTab ? true : activeName == tab">
+                            <template v-for="(item, index) in newAttrs.formItems">
+                                <ItemIf
+                                    v-if="tab == item.tab"
+                                    :key="index"
+                                    :form_item="item"
+                                    :form_items="newAttrs.formItems"
+                                    :form_data="formData"
                                 >
-                  <span slot="label" v-if="!item.hideLabel">
-                    {{ item.label }}
-                  </span>
-                                    <template v-if="!item.component||(item.component&&item.component.type!='hidden')">
-                                        <el-col :span="item.inputWidth">
-                                            <template v-if="item.relationName">
-                                                <ItemDiaplsy
-                                                    v-model="
-                            formData[item.relationName][item.relationValueKey]
-                          "
-                            :default-prop-values="defaultFormData[item.relationName][item.relationValueKey]"
+                                    <component
+                                        v-if="item.topComponent"
+                                        :is="item.topComponent.componentName"
+                                        :attrs="item.topComponent"
+                                    />
 
-                                                    :form-item="item"
-                                                    :form-items="newAttrs.formItems"
-                                                    :form-data="formData"
-                                                />
-                                            </template>
-                                            <template v-else>
-                                                <ItemDiaplsy
-                                                    v-model="formData[item.prop]"
-                                                    :default-prop-values="defaultFormData[item.prop]"
-                                                    :form-item="item"
-                                                    :form-items="newAttrs.formItems"
-                                                    :form-data="formData"
-                                                />
-                                            </template>
+                                    <el-form-item
+                                        :prop="item.prop"
+                                        :label-width="item.labelWidth"
+                                        :error="item.error"
+                                        :show-message="item.showMessage"
+                                        :inline-message="item.inlineMessage"
+                                        :size="item.size"
+                                    >
+                    <span slot="label" v-if="!item.hideLabel">
+                        {{ item.label }}
+                    </span>
+                                        <template v-if="!item.component||(item.component&&item.component.type!='hidden')">
+                                            <el-col :span="item.inputWidth">
+                                                <template v-if="item.relationName">
+                                                    <ItemDiaplsy
+                                                        v-model="
+                                formData[item.relationName][item.relationValueKey]
+                            "
+                                :default-prop-values="defaultFormData[item.relationName][item.relationValueKey]"
 
-                                            <div
-                                                v-if="item.help"
-                                                class="form-item-help"
-                                                v-html="item.help"
-                                            ></div>
-                                        </el-col>
-                                    </template>
-                                </el-form-item>
-                                <component
-                                    v-if="item.footerComponent"
-                                    :is="item.footerComponent.componentName"
-                                    :newAttrs="item.footerComponent"
-                                />
-                            </ItemIf>
+                                                        :form-item="item"
+                                                        :form-items="newAttrs.formItems"
+                                                        :form-data="formData"
+                                                    />
+                                                </template>
+                                                <template v-else>
+                                                    <ItemDiaplsy
+                                                        v-model="formData[item.prop]"
+                                                        :default-prop-values="defaultFormData[item.prop]"
+                                                        :form-item="item"
+                                                        :form-items="newAttrs.formItems"
+                                                        :form-data="formData"
+                                                    />
+                                                </template>
+
+                                                <div
+                                                    v-if="item.help"
+                                                    class="form-item-help"
+                                                    v-html="item.help"
+                                                ></div>
+                                            </el-col>
+                                        </template>
+                                    </el-form-item>
+                                    <component
+                                        v-if="item.footerComponent"
+                                        :is="item.footerComponent.componentName"
+                                        :newAttrs="item.footerComponent"
+                                    />
+                                </ItemIf>
+                            </template>
                         </template>
                     </component>
                 </component>
@@ -264,6 +266,9 @@
             }
         },
         methods: {
+            handleClick(tab, event){
+                this.activeName = tab.name;
+            },
             getEditData() {
                 this.loading = true;
                 this.init = false;
