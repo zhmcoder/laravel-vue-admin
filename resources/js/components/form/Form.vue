@@ -74,7 +74,7 @@
                               v-model="
                               formData[item.relationName][item.relationValueKey]
                             "
-                              :default-prop-values="defaultFormData[item.relationName][item.relationValueKey]"
+                              :default-prop-values="defaultFormData ? defaultFormData[item.relationName][item.relationValueKey]:null"
                               :form-item="item"
                               :form-items="attrs.formItems"
                               :form-data="formData"
@@ -83,7 +83,7 @@
                         <template v-else>
                           <ItemDiaplsy
                               v-model="formData[item.prop]"
-                              :default-prop-values="defaultFormData[item.prop]"
+                              :default-prop-values="defaultFormData ? defaultFormData[item.prop]:null"
                               :form-item="item"
                               :form-items="attrs.formItems"
                               :form-data="formData"
@@ -219,7 +219,7 @@
 				loading: false,
 				init: false,
 				formData: null,
-        defaultFormData:{},
+        defaultFormData:null,
         activeName:null,
 			};
 		},
