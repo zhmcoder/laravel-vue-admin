@@ -76,6 +76,7 @@ Vue.component(
     "IconChoose",
     require("./components/widgets/Form/IconChoose").default
 );
+Vue.component("AddTag", require("./components/widgets/Form/AddTag").default);
 
 //Grid
 Vue.component("Avatar", require("./components/widgets/Grid/Avatar").default);
@@ -97,8 +98,8 @@ Vue.component(
     require("@/components/widgets/Actions/DeleteAction").default
 );
 Vue.component(
-	"DeleteDialogAction",
-	require("@/components/widgets/Actions/DeleteDialogAction").default
+    "DeleteDialogAction",
+    require("@/components/widgets/Actions/DeleteDialogAction").default
 );
 Vue.component(
     "VueRouteAction",
