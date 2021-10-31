@@ -45,17 +45,20 @@
 import { FormItemComponent } from "@/mixins.js";
 export default {
   mixins: [FormItemComponent],
-  props: {
-    attrs: Object,
-    dynamicTags: {
-      default: [],
-    },
-  },
   data() {
     return {
       inputVisible: false,
       inputValue: "",
     };
+  },
+  computed:{
+    dynamicTags(){
+      if(this.value){
+        return this.value;
+      }else{
+        return [];
+      }
+    }
   },
   methods: {
     handleClose(tag) {
