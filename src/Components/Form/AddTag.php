@@ -8,8 +8,8 @@ class AddTag extends Component
 {
     protected $componentName = "AddTag";
 
-    protected $size = 'mini';
-    protected $type = 'info';
+    protected $size = 'medium';
+    protected $type = '';
     protected $closable = true;
     protected $disableTransitions = true;
     protected $hit = false;
