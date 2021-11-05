@@ -133,7 +133,7 @@ trait HasActions
     {
         $actions = collect($this->actions);
 
-        if ($this->grid->getDialogForm() || $this->grid->getAddDialogForm() || $this->grid->getEditDialogForm() || $this->grid->getDrawerForm()) {
+        if ($this->grid->getDialogForm() || $this->grid->getAddDialogForm() || $this->grid->getEditDialogForm()) {
             $this->editAction->isDialog(true);
         }
 
