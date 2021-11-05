@@ -92,8 +92,7 @@ class Toolbars extends AdminJsonBuilder
             $right->prepend($addRight);
         }
 
-        if ($this->grid->getDialogForm() || $this->grid->getAddDialogForm()
-            || $this->grid->getEditDialogForm()) {
+        if ($this->grid->getDialogForm() || $this->grid->getAddDialogForm() || $this->grid->getEditDialogForm() || $this->grid->getDrawerForm()) {
             $this->createButton->isDialog(true);
         }
 

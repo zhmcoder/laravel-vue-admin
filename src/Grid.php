@@ -419,6 +419,11 @@ class Grid extends Component
         return $this->dialogForm;
     }
 
+    public function getDrawerForm()
+    {
+        return $this->drawerForm;
+    }
+
     public function getAddDialogForm()
     {
         return $this->addDialogForm;
