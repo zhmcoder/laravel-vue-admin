@@ -266,6 +266,14 @@
       :dialogTitle="getDialogFormData(3)"
       :dialogTitleCenter="attrs.dialogTitleCenter"
     />
+    <DrawerForm
+      ref="DialogGridFrom"
+      v-if="attrs.isDrawerForm"
+      :dialogFormWidth="getDialogFormData(1)"
+      :dialogForm="getDialogFormData(2)"
+      :dialogTitle="getDialogFormData(3)"
+      :dialogTitleCenter="attrs.dialogTitleCenter"
+    />
   </div>
 </template>
 
@@ -277,6 +285,7 @@ import Actions from "./Actions/Index";
 import BatchActions from "./BatchActions/Index";
 import ItemDiaplsy from "../form/ItemDiaplsy";
 import DialogForm from "./DialogForm";
+import DrawerForm from "./DrawerForm";
 export default {
   mixins: [BaseComponent],
   components: {
@@ -285,6 +294,7 @@ export default {
     ItemDiaplsy,
     BatchActions,
     DialogForm,
+    DrawerForm
   },
   props: {
     attrs: Object,
