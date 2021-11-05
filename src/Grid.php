@@ -92,28 +92,27 @@ class Grid extends Component
      * @var Form
      */
     protected $dialogForm;
-
     protected $isDialogForm;
+    protected $dialogFormWidth;
+    protected $dialogTitle = ['添加', '修改'];
 
+
+    protected $drawerForm;
+    protected $isDrawerForm;
+    protected $drawerFormWidth;
+    protected $drawerTitle = ['添加', '修改'];
 
     /**
      * @var Form
      */
     protected $addDialogForm;
+    protected $addDialogFormWidth;
+    protected $addDialogFormTitle = ['添加', '修改'];
 
     /**
      * @var Form
      */
     protected $editDialogForm;
-    /**
-     * @var string
-     */
-    protected $dialogFormWidth;
-    protected $dialogTitle = ['添加', '修改'];
-
-    protected $addDialogFormWidth;
-    protected $addDialogFormTitle = ['添加', '修改'];
-
     protected $editDialogFormWidth;
     protected $editDialogFormTitle = ['添加', '修改'];
 
@@ -368,6 +367,21 @@ class Grid extends Component
     }
 
     /**
+     * @param Form $drawerForm
+     * @param  $width
+     * @param  $title
+     * @return Grid
+     */
+    public function drawerForm(Form $drawerForm, $width = '500px', $title = ['添加', '修改'])
+    {
+        $this->drawerForm = $drawerForm;
+        $this->drawerFormWidth = $width;
+        $this->drawerTitle = $title;
+        $this->isDrawerForm = true;
+        return $this;
+    }
+
+    /**
      * @param Form $dialogForm
      * @param  $width
      * @param  $title
@@ -548,10 +562,14 @@ class Grid extends Component
             $viewData['bottom'] = $this->bottom;
 
             $viewData['isDialogForm'] = $this->isDialogForm;
-
             $viewData['dialogForm'] = $this->dialogForm;
             $viewData['dialogFormWidth'] = $this->dialogFormWidth;
             $viewData['dialogTitle'] = $this->dialogTitle;
+
+            $viewData['isDrawerForm'] = $this->isDrawerForm;
+            $viewData['drawerForm'] = $this->drawerForm;
+            $viewData['drawerFormWidth'] = $this->drawerFormWidth;
+            $viewData['drawerTitle'] = $this->drawerTitle;
 
             $viewData['addDialogForm'] = $this->addDialogForm;
             $viewData['addDialogFormWidth'] = $this->addDialogFormWidth;
