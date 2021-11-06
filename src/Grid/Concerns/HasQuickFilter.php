@@ -42,13 +42,15 @@ trait HasQuickFilter
         return $this;
     }
 
-    public function quickOptions($options = [])
+    public function quickOptions($options = [], $show_all = true)
     {
         if ($this->quickFilter == null) {
             $this->quickFilter = new QuickFilter();
         }
         $this->quickFilter->options = $options;
-        array_unshift($this->quickFilter->options, Radio::make('', '全部'));
+        if ($show_all) {
+            array_unshift($this->quickFilter->options, Radio::make('', '全部'));
+        }
         return $this;
     }
 
