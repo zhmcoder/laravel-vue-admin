@@ -361,17 +361,8 @@ class Grid extends Component
         return $this;
     }
 
-    /**
-     * @param Form $dialogForm
-     * @param  $width
-     * @param  $title
-     * @return Grid
-     */
-    public function drawerForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
+    public function isDrawerForm()
     {
-        $this->dialogForm = $dialogForm;
-        $this->dialogFormWidth = $width;
-        $this->dialogTitle = $title;
         $this->isDrawerForm = true;
         return $this;
     }
