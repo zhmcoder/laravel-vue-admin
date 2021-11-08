@@ -777,7 +777,13 @@ class Form extends Component
 
         $this->setMode(self::MODE_EDIT);
         $this->setResourceId($id);
-        $this->editData = $this->model = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
+        $relations = $this->getRelations();
+        if (count($relations) > 0) {
+            $this->editData = $this->model = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
+        } else {
+            $this->editData = $this->model->findOrFail($this->getResourceId());
+        }
+
         $data = [];
         /**@var FormItem $formItem */
         foreach ($this->formItems as $formItem) {

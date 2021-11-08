@@ -35,10 +35,10 @@ class AdminController extends Controller
     public function msgDialog()
     {
         return [
-            'title'=>'系统提示',
-            'content'=>'系统提示',
-            'okText'=>'确认好了',
-            'width'=>'400px'
+            'title' => '系统提示',
+            'content' => '系统提示',
+            'okText' => '确认好了',
+            'width' => '400px'
         ];
     }
 
@@ -46,17 +46,19 @@ class AdminController extends Controller
     public function create(Content $content)
     {
         //可以重写这里，实现自定义布局
-        $content->body($this->form())->className("m-10");
+        $create_form = $this->form();
+        $content->body($create_form)->className("m-10");
         //这里必须这样写
-        return $this->isGetData() ? $this->form() : $content;
+        return $this->isGetData() ? $create_form : $content;
     }
 
     public function edit($id, Content $content)
     {
         //可以重写这里，实现自定义布局
-        $content->body($this->form(true)->edit($id))->className("m-10");
+        $edit_form = $this->form(true)->edit($id);
+        $content->body($edit_form)->className("m-10");
         //这里必须这样写
-        return $this->isGetData() ? $this->form(true)->edit($id) : $content;
+        return $this->isGetData() ? $edit_form : $content;
     }
 
 
