@@ -286,8 +286,11 @@
 														}
 													}
 													select_item['component']['options'].push(...select_data);
-
-													data[select_related] = select_related_value * 1;
+                          if(!isNaN(select_related_value)){
+													  data[select_related] = select_related_value * 1;
+                          }else{
+													  data[select_related] = select_related_value;
+                          }
 												});
 										}
 
