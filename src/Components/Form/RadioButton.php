@@ -1,10 +1,9 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Components\Form;
 
-
 use SmallRuralDog\Admin\Components\Component;
+
 //<!--deep admin start-->
 class RadioButton extends Component
 {
@@ -30,7 +29,7 @@ class RadioButton extends Component
 
     static public function make($value, $title)
     {
-        return (new Radio($value))->label($value)->title($title);
+        return (new RadioButton($value))->label($value)->title($title);
     }
 
     /**

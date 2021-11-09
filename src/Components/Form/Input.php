@@ -202,10 +202,10 @@ class Input extends Component
 
     /**
      * 自适应内容高度，只对 type="textarea" 有效，可传入对象，如，{ minRows: 2, maxRows: 6 }
-     * @param bool $autosize
+     * @param $autosize
      * @return $this
      */
-    public function autosize(bool $autosize)
+    public function autosize($autosize)
     {
         $this->autosize = $autosize;
         return $this;

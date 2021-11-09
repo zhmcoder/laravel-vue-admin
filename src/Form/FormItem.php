@@ -16,7 +16,7 @@ class FormItem extends Component
     protected $hideLabel = false;
     protected $field;
     protected $labelWidth;
-    protected $inputWidth = 24;
+    protected $inputWidth = 12;
     protected $required = false;
     protected $rules;
     protected $error;
@@ -463,6 +463,7 @@ class FormItem extends Component
     }
 
     // deep admin start
+
     /**
      * 是否重复
      * @param bool $unique
@@ -490,11 +491,11 @@ class FormItem extends Component
      */
     public function max($max = 1)
     {
-        $this->serveRules[] = 'max:'.$max;
-        $this->serveCreationRules[] = 'max:'.$max;
-        $this->serveUpdateRules[] = 'max:'.$max;
+        $this->serveRules[] = 'max:' . $max;
+        $this->serveCreationRules[] = 'max:' . $max;
+        $this->serveUpdateRules[] = 'max:' . $max;
 
-        $this->serveRulesMessage['max'] = $this->label.': 不能大于'.$max.'个字符';
+        $this->serveRulesMessage['max'] = $this->label . ': 不能大于' . $max . '个字符';
 
         return $this;
     }

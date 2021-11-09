@@ -88,8 +88,8 @@ class RadioGroup extends Component
 
     public function border()
     {
-        collect($this->options)->each(function (Radio $radio) {
-            $radio->setBorder();
+        collect($this->options)->each(function ($radio) {
+            $radio->border();
         });
 
         return $this;

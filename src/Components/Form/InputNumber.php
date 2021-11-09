@@ -37,7 +37,7 @@ class InputNumber extends Component
     protected $size;
     protected $disabled = false;
     protected $controls = true;
-    protected $controlsPosition = 'right';
+    protected $controlsPosition = '';
     /**
      * @var string
      */
@@ -146,7 +146,7 @@ class InputNumber extends Component
     }
 
     /**
-     * 控制按钮位置
+     * 控制按钮位置 right
      * @param string $controlsPosition
      * @return $this
      */
