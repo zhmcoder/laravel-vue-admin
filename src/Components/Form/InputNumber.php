@@ -80,10 +80,10 @@ class InputNumber extends Component
 
     /**
      * 计数器步长
-     * @param int $step
+     * @param $step
      * @return $this
      */
-    public function step(int $step)
+    public function step($step)
     {
         $this->step = $step;
         return $this;
