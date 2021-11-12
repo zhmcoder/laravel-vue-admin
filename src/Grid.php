@@ -117,18 +117,22 @@ class Grid extends Component
     protected $dialogTitleCenter = false;
 
     /**
-     * @var 居中显示
+     * 居中显示
+     * @var bool
      */
     protected $filterFormCenter;
 
     public function __construct(Eloquent $model = null)
     {
+        $this->perPage = env('PER_PAGE', 15);
+        $this->pageSizes = env('PAGE_SIZES', [10, 15, 20, 30, 50, 100]);
+
         $this->attributes = new Attributes();
         $this->dataUrl = admin_api_url(request()->path());
         $this->model = new Model($model, $this);
         if ($model) {
             $this->keyName = $model->getKeyName();
-            $this->defaultSort($model->getKeyName(), "asc");
+            $this->defaultSort($model->getKeyName(), "desc");
         }
         $this->isGetData = request('get_data') == "true";
         $this->toolbars = new Toolbars($this);

@@ -28,7 +28,8 @@ trait HasGridAttributes
      * js计算页面高度，使表格高度撑满窗口
      * @return $this
      */
-    public function autoHeight(){
+    public function autoHeight()
+    {
         $this->attributes->height = 'auto';
         return $this;
     }
@@ -248,6 +249,7 @@ trait HasGridAttributes
         $this->attributes->hideActions = true;
         return $this;
     }
+
     public function getHideActions()
     {
         return $this->attributes->hideActions;

@@ -11,12 +11,12 @@ class FormAttrs
     public $rules;
     public $inline = false;
     public $labelPosition = 'right';
-    public $labelWidth = "200px";
+    public $labelWidth = "auto";
     public $labelSuffix = "：";
     public $hideRequiredAsterisk = false;
     public $showMessage = true;
-    public $inlineMessage = false;
-    public $statusIcon = false;
+    public $inlineMessage = true;
+    public $statusIcon = true;
     public $validateOnRuleChange = true;
     public $size;
     public $disabled = false;

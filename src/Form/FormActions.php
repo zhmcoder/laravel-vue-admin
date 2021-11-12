@@ -23,7 +23,7 @@ class FormActions
     protected $hideSubmitButton;
 
     protected $fixed = false;
-    protected $buttonCenter = false;
+    protected $buttonCenter = true;
 
     public function __construct(Form $form)
     {

@@ -4,6 +4,11 @@ namespace SmallRuralDog\Admin\Grid\Table;
 
 class Attributes
 {
+    public function __construct()
+    {
+        $this->border = env('TABLE_BORDER', false);
+        $this->size = env('TABLE_SIZE', 'medium');
+    }
 
     public $height;
 
@@ -37,16 +42,15 @@ class Attributes
     /**
      * @var bool
      */
-    public $highlightCurrentRow;
+    public $highlightCurrentRow = true;
 
 
-    public $emptyText;
+    public $emptyText = '暂无数据';
 
 
     public $tooltipEffect;
 
     public $rowKey = 'id';
-
 
 
     public $draggable = false;
@@ -57,7 +61,7 @@ class Attributes
     public $treeProps = ['hasChildren' => 'hasChildren', 'children' => 'children'];
 
 
-    public $hideActions=false;
+    public $hideActions = false;
     public $actionWidth;
     public $actionLabel = "操作";
     public $actionFixed;
