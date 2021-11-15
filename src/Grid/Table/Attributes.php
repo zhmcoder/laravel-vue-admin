@@ -7,7 +7,7 @@ class Attributes
     public function __construct()
     {
         $this->border = env('TABLE_BORDER', false);
-        $this->size = env('TABLE_SIZE', 'medium');
+        $this->size = env('TABLE_SIZE', 'small');
     }
 
     public $height;
