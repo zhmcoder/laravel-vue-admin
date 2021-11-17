@@ -21,14 +21,9 @@ class RoleController extends AdminController
 
         $grid->quickSearch(['slug', 'name'])
             ->quickSearchPlaceholder('名称 / 标识')
-            ->stripe()
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
             ->emptyText("暂无角色");
 
-        $grid->column('id', '序号')->width('120px')->sortable(true)->align('center');
+        $grid->column('id', '序号')->width(100)->sortable(true)->align('center');
         $grid->column('slug', "标识");
         $grid->column('name', "名称");
         $grid->column('permissions.name', "权限")->component(Tag::make()->type('info'));
@@ -49,8 +44,8 @@ class RoleController extends AdminController
         $roleModel = config('admin.database.roles_model');
 
         $form = new Form(new $roleModel());
-        $form->getActions()->buttonCenter();
 
+        $form->getActions()->buttonCenter();
         $form->labelWidth('120px');
 
         $form->item('slug', "标识")->required()->inputWidth(6);
@@ -59,7 +54,7 @@ class RoleController extends AdminController
             Transfer::make()->data($permissionModel::get()->map(function ($item) {
                 return TransferData::make($item->id, $item->name);
             }))->titles(['可授权', '已授权'])->filterable()
-        );
+        )->inputWidth(24);
         return $form;
     }
 }

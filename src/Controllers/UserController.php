@@ -10,33 +10,27 @@ use SmallRuralDog\Admin\Components\Grid\Avatar;
 use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
-use Admin;
 
 class UserController extends AdminController
 {
     protected function grid()
     {
         $userModel = config('admin.database.users_model');
+
         $grid = new Grid(new $userModel());
+
+        $user = \Admin::user();
+        $grid->model()->where('id', '>=', $user['id']);
 
         $grid->addDialogForm($this->form()->isDialog()->className('p-15'));
         $grid->editDialogForm($this->form(true)->isDialog()->className('p-15'));
 
         $grid->quickSearch(['name', 'username'])
             ->quickSearchPlaceholder("用户名 / 昵称")
-            ->pageBackground()
-            ->defaultSort('id', 'desc')
             ->selection()
-            ->stripe(true)
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
             ->emptyText("暂无用户");
 
-        $user = Admin::user();
-        $grid->model()->where('id', '>=', $user['id']);
-
-        $grid->column('id', "序号")->sortable(true)->width(120)->align('center');
+        $grid->column('id', "序号")->sortable(true)->width(100)->align('center');
         $grid->column('avatar', '头像')->width(120)->align('center')->component(Avatar::make());
         $grid->column('username', "用户名");
         $grid->column('name', '用户昵称');
@@ -56,13 +50,13 @@ class UserController extends AdminController
         $userModel = config('admin.database.users_model');
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
+
         $form = new Form(new $userModel());
         $form->getActions()->buttonCenter();
+        $form->labelWidth('150px');
 
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');
-
-        $form->labelWidth('150px');
 
         $form->item('username', '用户名')->inputWidth(15)
             ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])

@@ -17,14 +17,9 @@ class LogController extends AdminController
         $grid->quickSearch(['path'])
             ->quickSearchPlaceholder("路径")
             ->selection()
-            ->stripe()
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
             ->emptyText("暂无日志");
 
-        $grid->column('id', "序号")->width("120")->sortable(true)->align('center');
+        $grid->column('id', "序号")->width(100)->sortable(true)->align('center');
         $grid->column('user.avatar', '头像', 'user_id')->component(Avatar::make()->size('small'))->width(80);
         $grid->column('user.name', '用户', 'user_id')->help("操作用户")->width(100)->sortable();
         $grid->column('method', '请求方式')->width(100)->align('center')->component(Tag::make()->type(['GET' => 'info', 'POST' => 'success']));

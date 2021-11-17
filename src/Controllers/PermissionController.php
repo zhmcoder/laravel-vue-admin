@@ -27,16 +27,11 @@ class PermissionController extends AdminController
 
         $grid = new Grid(new $permissionModel());
 
-        $grid->stripe()
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
-            ->emptyText("暂无权限");
-
+        $grid->emptyText("暂无权限");
         $grid->quickSearch(['slug', 'name']);
         $grid->quickSearchPlaceholder('名称 / 标识');
-        $grid->column('id', '序号')->sortable()->width(120)->align('center');
+
+        $grid->column('id', '序号')->sortable()->width(100)->align('center');
         $grid->column('slug', "标识")->width(150);
         $grid->column('name', "名称")->width(150);
         $grid->column('http_method', "请求方式")->component(Tag::make());
@@ -51,7 +46,7 @@ class PermissionController extends AdminController
             $actions->setDeleteAction(new Grid\Actions\DeleteDialogAction());
         });
 
-        $grid->dialogForm($this->form()->isDialog()->className('p-15')->labelWidth('auto'), '500px', ['添加权限', '编辑权限']);
+        $grid->dialogForm($this->form()->isDialog()->className('p-15'));
 
         return $grid;
     }
@@ -61,7 +56,9 @@ class PermissionController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
 
         $form = new Form(new $permissionModel());
+
         $form->getActions()->buttonCenter();
+        $form->labelWidth('150px');
 
         $form->item('slug', "标识")->required();
         $form->item('name', "名称")->required();
@@ -73,7 +70,7 @@ class PermissionController extends AdminController
                     ->clearable()
                     ->options($this->getHttpMethodsOptions());
             });
-        $form->item('http_path', "路由")->required()->component(Input::make()->textarea(8));
+        $form->item('http_path', "路由")->required()->component(Input::make()->textarea(8))->inputWidth(20);
 
         return $form;
     }

@@ -377,7 +377,7 @@ class Grid extends Component
      * @param  $title
      * @return Grid
      */
-    public function addDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
+    public function addDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '编辑'])
     {
         $this->addDialogForm = $dialogForm;
         $this->addDialogFormWidth = $width;
@@ -392,7 +392,7 @@ class Grid extends Component
      * @param  $title
      * @return Grid
      */
-    public function editDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
+    public function editDialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '编辑'])
     {
         $this->editDialogForm = $dialogForm;
         $this->editDialogFormWidth = $width;

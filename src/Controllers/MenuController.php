@@ -76,15 +76,10 @@ class MenuController extends AdminController
             ->tree()
             ->quickSearch(["title"])
             ->quickSearchPlaceholder('名称')
-            ->defaultExpandAll(false)
-            ->stripe()
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
             ->emptyText("暂无菜单");
         //->dialogForm($this->form()->isDialog()->labelPosition("top")->backButtonName("关闭"));
 
-        $grid->column('id', "序号")->width(120)->sortable(true)->align('center');
+        $grid->column('id', "序号")->width(100)->sortable(true)->align('center');
         $grid->column('icon', "图标")->component(Icon::make())->width(80)->align('center');
         $grid->column('title', "名称");
         $grid->column('order', "排序")->width(80)->sortable(true);
@@ -106,10 +101,10 @@ class MenuController extends AdminController
         $model = config('admin.database.menu_model');
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
+
         $form = new Form(new $model());
         $form->getActions()->buttonCenter();
-
-        $form->labelWidth('160px');
+        $form->labelWidth('150px');
 
         $form->item('parent_id', '上级目录')->component(Select::make(0)->options(function () use ($model) {
             return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
@@ -117,7 +112,7 @@ class MenuController extends AdminController
             })->prepend(SelectOption::make(0, '根目录'));
         }))->inputWidth(20);
         $form->item('title', '名称')->required()->inputWidth(15);
-        $form->item('icon', trans('admin::admin.icon'))->component(IconChoose::make())->inputWidth(20)->required();
+        $form->item('icon', trans('admin::admin.icon'))->component(IconChoose::make())->inputWidth(15)->required();
 
         $form->item('uri', trans('admin::admin.uri'))->required()->inputWidth(15);
         $form->item('order', trans('admin::admin.order'))->component(InputNumber::make(1)->min(0));
