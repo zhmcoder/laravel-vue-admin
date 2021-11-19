@@ -847,6 +847,7 @@ class Form extends Component
             'componentName' => $this->componentName,
             'action' => $this->getAction(),
             'dataUrl' => $this->dataUrl,
+            'isGetData' => $this->isGetData,
             'mode' => $this->getMode(),
             'attrs' => $this->attrs,
             'formItems' => $this->formItemsAttr,
