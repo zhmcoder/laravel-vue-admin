@@ -227,12 +227,14 @@
       this.activeName = this.attrs.tabValue;
     },
 		mounted() {
-			this.formData = this._.cloneDeep(this.attrs.defaultValues);
-			this.isEdit && this.getEditData();
+      // 存在dataUrl的时候获取后台数据
+      this.attrs.dataUrl && this.getFormData();
+      this.formData = this._.cloneDeep(this.attrs.defaultValues);
+      this.isEdit && this.getEditData();
 
-			this.$bus.on("resetFormData", () => {
-				this.formData = this._.cloneDeep(this.attrs.defaultValues);
-			});
+      this.$bus.on("resetFormData", () => {
+        this.formData = this._.cloneDeep(this.attrs.defaultValues);
+      });
       this.$bus.on('setDefaultFormData',(data)=>{
         this.defaultFormData = data;
       })
@@ -248,6 +250,59 @@
 		methods: {
       handleClick(tab, event){
           this.activeName = tab.name;
+      },
+      getFormData(){
+        this.$http
+					.get(this.attrs.dataUrl)
+					.then(({data}) => {
+						let temp_data = JSON.parse(JSON.stringify(data));
+						//处理远程接口下拉
+						this.attrs['formItems'].forEach(item => {
+							if (item['component'] && item['component']['isRelatedSelect']) {
+								let select_related = item['component']['relatedSelectRef'];
+								let select_related_value = data[select_related];
+								data[select_related] = null;
+								this.attrs['formItems'].forEach(select_item => {
+									if (select_item['prop'] == select_related) {
+										if (select_item['component'] && select_item['component']['remoteUrl']) {
+											this.$http
+												.get(select_item['component']['remoteUrl'], {
+													params: {
+														[item.prop]: temp_data[item.prop]
+													}
+												})
+												.then(res => {
+													const select_data = res.data.data || res.data;
+													if (select_data.length) {
+														let length = select_item['component']['options'].length;
+														for (let i = 0; i < length; i++) {
+															select_item['component']['options'].splice(0, 1);
+														}
+													}
+													select_item['component']['options'].push(...select_data);
+                          if(!isNaN(select_related_value)){
+													  data[select_related] = select_related_value * 1;
+                          }else{
+													  data[select_related] = select_related_value;
+                          }
+												});
+										}
+
+									}
+								})
+							}
+						})
+						this.formData = data;
+						this.init = true;
+
+						//发送表单编辑数据加载完毕事件
+						this.$nextTick(() => {
+							this.$bus.emit("EditDataLoadingCompleted");
+						});
+					})
+					.finally(() => {
+						this.loading = false;
+					});
       },
 			getEditData() {
 				this.loading = true;

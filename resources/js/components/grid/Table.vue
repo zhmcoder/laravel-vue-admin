@@ -116,7 +116,7 @@
               direction="vertical"
               v-if="!attrs.attributes.hideCreateButton"
             ></el-divider>
-            <div class="icon-actions">
+            <div class="icon-actions" v-if="attrs.attributes.topTool!='hidden'">
               <el-dropdown trigger="click">
                 <el-tooltip
                   class="item"
