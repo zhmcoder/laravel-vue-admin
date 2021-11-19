@@ -71,4 +71,7 @@ class Attributes
 
     public $dataVuex = false;
 
+    public $showSummary = false;
+    public $topTool = true; // 是否显示顶部工具
+
 }

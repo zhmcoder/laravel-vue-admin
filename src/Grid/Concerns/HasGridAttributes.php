@@ -12,9 +12,10 @@ trait HasGridAttributes
      */
     protected $attributes;
 
-
     /**
-     * Table 的高度，默认为自动高度。如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
+     * Table 的高度，默认为自动高度。
+     * 如果 height 为 number 类型，单位 px；
+     * 如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
      * @param string|int $height
      * @return $this
      */
@@ -80,7 +81,6 @@ trait HasGridAttributes
         return $this;
     }
 
-
     /**
      * 列的宽度是否自撑开
      * @param bool $fit
@@ -92,7 +92,6 @@ trait HasGridAttributes
         return $this;
     }
 
-
     /**
      * 是否显示表头
      * @param bool $showHeader
@@ -103,7 +102,6 @@ trait HasGridAttributes
         $this->attributes->showHeader = $showHeader;
         return $this;
     }
-
 
     /**
      * 是否要高亮当前行
@@ -145,7 +143,6 @@ trait HasGridAttributes
         return $this;
     }
 
-
     /**
      * @param $url
      * @return $this
@@ -177,7 +174,6 @@ trait HasGridAttributes
             'children' => $children,
         ];
     }
-
 
     public function getTreeChildrenName()
     {
@@ -253,7 +249,6 @@ trait HasGridAttributes
     public function getHideActions()
     {
         return $this->attributes->hideActions;
-
     }
 
     /**
@@ -268,13 +263,25 @@ trait HasGridAttributes
     }
 
     /**
-     * 显示表格试问汇总计算
-     * @param $dataVuex
+     * 显示表格汇总计算
+     * @param $showSummary
      * @return $this
      */
     public function showSummary($showSummary = true)
     {
         $this->attributes->showSummary = $showSummary;
+        return $this;
+    }
+
+    /**
+     * 隐藏头部工具
+     * @param bool $topTool
+     * hidden 隐藏
+     * @return $this
+     */
+    public function topTool($topTool = true)
+    {
+        $this->attributes->topTool = $topTool;
         return $this;
     }
 

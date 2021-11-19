@@ -212,6 +212,12 @@ class Grid extends Component
         return $this->isGetData;
     }
 
+    public function setIsGetData($isGetData)
+    {
+        $this->isGetData = $isGetData;
+        return $this;
+    }
+
 
     /**
      * 设置树形表格
