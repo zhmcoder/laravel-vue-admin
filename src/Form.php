@@ -838,7 +838,9 @@ class Form extends Component
         }
 
         if ($this->isGetData) {
-            return $this->editData($this->getResourceId());
+            if ($this->getResourceId()) {
+                return $this->editData($this->getResourceId());
+            }
         }
 
         return [
