@@ -228,9 +228,9 @@
     },
 		mounted() {
       // 存在dataUrl的时候获取后台数据
-      this.attrs.dataUrl && this.getFormData();
       this.formData = this._.cloneDeep(this.attrs.defaultValues);
       this.isEdit && this.getEditData();
+      this.attrs.dataUrl && this.attrs.isGetData && this.getFormData();
 
       this.$bus.on("resetFormData", () => {
         this.formData = this._.cloneDeep(this.attrs.defaultValues);
@@ -433,8 +433,11 @@
 
 			},
 			closeDialog() {
-				this.$bus.emit("showDialogGridFrom", {isShow: false});
-				this.$bus.emit("closeDialog");
+        if(this.attrs.isGetData){
+				  this.$bus.emit("closeDialog");
+        }else{
+				  this.$bus.emit("showDialogGridFrom", {isShow: false});
+        }
 			},
 		},
 	};
