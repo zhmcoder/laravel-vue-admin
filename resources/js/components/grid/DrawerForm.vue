@@ -1,7 +1,7 @@
 <template>
     <el-drawer
         :title="key == null ? dialogTitle[0] || '添加' : dialogTitle[1] || '编辑'"
-        :width="dialogFormWidth"
+        :size="dialogFormWidth"
         :visible.sync="dialogVisible"
         :close-on-click-modal="false"
         :center="dialogTitleCenter"
