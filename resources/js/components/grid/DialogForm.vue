@@ -6,6 +6,7 @@
       :close-on-click-modal="false"
 	  :center="dialogTitleCenter"
       @closed="onClose"
+	  :append-to-body="true"
   >
     <component
         v-if="showForm"
