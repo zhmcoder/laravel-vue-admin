@@ -1,17 +1,19 @@
 <template>
-    <el-drawer
-        :title="key == null ? dialogTitle[0] || '添加' : dialogTitle[1] || '编辑'"
-        :size="dialogFormWidth"
-        :visible.sync="dialogVisible"
-        :close-on-click-modal="false"
-        :center="dialogTitleCenter"
-        :before-close="onClose">
-        <component
-            v-if="showForm"
-            :is="dialogForm.componentName"
-            :attrs="selfDialogForm"
-        />
-    </el-drawer>
+    <div class="my-drawer-form">
+        <el-drawer
+            :title="key == null ? dialogTitle[0] || '添加000' : dialogTitle[1] || '编辑'"
+            :size="dialogFormWidth"
+            :visible.sync="dialogVisible"
+            :close-on-click-modal="false"
+            :center="dialogTitleCenter"
+            :before-close="onClose">
+            <component
+                v-if="showForm"
+                :is="dialogForm.componentName"
+                :attrs="selfDialogForm"
+            />
+        </el-drawer>
+    </div>
 </template>
 <script>
 export default {
@@ -74,5 +76,7 @@ export default {
 }
 </script>
 <style scoped>
-
+    .my-drawer-form >>> .el-drawer__header{
+        margin-bottom: 14px !important;
+    }
 </style>
