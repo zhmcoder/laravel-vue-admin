@@ -4,6 +4,7 @@
             :title="key == null ? dialogTitle[0] || '添加000' : dialogTitle[1] || '编辑'"
             :size="dialogFormWidth"
             :visible.sync="dialogVisible"
+            v-if="dialogVisible"
             :close-on-click-modal="false"
             :center="dialogTitleCenter"
             :before-close="onClose">
