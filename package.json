@@ -39,7 +39,7 @@
     "dependencies": {
         "flat": "^5.0.2",
         "js-cookie": "^2.2.1",
-        "mavon-editor": "^2.9.1",
+        "mavon-editor": "^2.10.4",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.3"
     }
