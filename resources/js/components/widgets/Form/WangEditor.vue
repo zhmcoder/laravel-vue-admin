@@ -54,6 +54,9 @@ export default {
     this.$nextTick(() => {
       this.editor.create();
       this.editor.txt.html(this.defaultValue);
+      if(this.value){
+        this.editor && this.editor.txt.html(this.value);
+      }
     });
     //编辑数据加载完毕设置编辑器的值
     this.$bus.on("EditDataLoadingCompleted", () => {
