@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Components\Widgets;
+namespace SmallRuralDog\Admin\Components\Form;
 
 
 use SmallRuralDog\Admin\Components\Component;
@@ -10,7 +10,6 @@ class Markdown extends Component
 {
     protected $componentName = "Markdown";
 
-    protected $content;
     protected $language = 'zh-CN';
     protected $fontSize = '14px';
     protected $scrollStyle = true;
@@ -34,15 +33,15 @@ class Markdown extends Component
     protected $toolbars;
 
 
-    public function __construct($content)
+    public function __construct($value = null)
     {
-        $this->content = $content;
+        $this->componentValue($value);
         $this->toolbars = config('admin.markdown_toolbars');
     }
 
-    public static function make($content = "")
+    public static function make($value = "")
     {
-        return new Markdown($content);
+        return new Markdown($value);
     }
 
 

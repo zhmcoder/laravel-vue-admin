@@ -74,13 +74,10 @@ export default {
   },
   computed: {
     depend() {
-        console.log(this.form_data);
       return _.pick(this.form_data, this.attrs.depend);
     }
   },
   mounted() {
-      console.log('11');
-      console.log(this.form_data);
     this.setLable();
   },
   methods: {

@@ -139,7 +139,7 @@ Vue.component(
     require("@/components/widgets/Base/DialogButton").default
 );
 Vue.component("Tooltip", require("@/components/widgets/Base/Tooltip").default);
-Vue.component("Markdown", () => import("@/components/widgets/Base/Markdown"));
+Vue.component("Markdown", () => import("@/components/widgets/Form/Markdown"));
 //antv
 Vue.component("AntvLine", () => import("@/components/antv/AntvLine"));
 Vue.component("AntvArea", () => import("@/components/antv/AntvArea"));
