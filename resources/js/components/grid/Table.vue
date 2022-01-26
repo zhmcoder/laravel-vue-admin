@@ -185,7 +185,7 @@
           <el-table-column
             v-if="attrs.tree"
             align="center"
-            width="50"
+            width="80"
           ></el-table-column>
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
