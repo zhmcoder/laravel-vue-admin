@@ -22,7 +22,6 @@ Homestead.json
 /.vagrant
 /.vscode
 .phpunit.result.cache
-public
 
 .idea
 package-lock.json
