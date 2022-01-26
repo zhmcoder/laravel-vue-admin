@@ -19,9 +19,9 @@ class Markdown extends Component
     protected $toolbarsBackground = '#ffffff';
     protected $previewBackground = '#fbfbfb';
     protected $editable = true;
-    protected $subfield = true;
+    protected $subfield = false;
     protected $defaultOpen = 'edit';//edit,preview
-    protected $toolbarsFlag = true;//edit,preview
+    protected $toolbarsFlag = true;
     protected $placeholder = '';
     protected $codeStyle = 'code-github';
     protected $navigation = false;
