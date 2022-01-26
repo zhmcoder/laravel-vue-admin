@@ -24,4 +24,6 @@ Homestead.json
 .phpunit.result.cache
 public
 
-.idea/
+.idea
+package-lock.json
+cross-env
