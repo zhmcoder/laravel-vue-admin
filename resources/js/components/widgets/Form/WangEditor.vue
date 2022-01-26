@@ -54,6 +54,7 @@ export default {
     this.$nextTick(() => {
       this.editor.create();
       this.editor.txt.html(this.defaultValue);
+      console.log('获取value====',this.value);
       if(this.value){
         this.editor && this.editor.txt.html(this.value);
       }
