@@ -94,6 +94,23 @@ export default {
       bottom: 0px;
     }
   }
+  .w-e-text-container {
+    // 文本框里面的层级调低
+    z-index: 1 !important;
+  }
+  .w-e-toolbar {
+    // 给工具栏换行
+    flex-wrap: wrap;
+  }
+  .w-e-menu {
+    // 最重要的一句代码
+    z-index: auto !important;
+
+    .w-e-droplist {
+      // 触发工具栏后的显示框调高
+      z-index: 2 !important;
+    }
+  }
 }
 
 </style>
