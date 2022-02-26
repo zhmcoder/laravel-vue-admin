@@ -40,6 +40,7 @@ export default {
   props: ["attrs", "value", "form_data"],
   methods: {
     onChange(value) {
+      console.log('90909');
       if (this.attrs.type == "number") {
         value = Number(value);
       }
@@ -48,3 +49,19 @@ export default {
   }
 };
 </script>
+<style scoped>
+/deep/ .el-input__suffix{
+  position: absolute;
+  top: 0;
+  -webkit-transition: all .3s;
+  height: 100%;
+  color: #C0C4CC;
+  text-align: center;
+  z-index: 99999999999;
+  background-color: #FFF;
+  height: 30px;
+  box-sizing: border-box;
+  margin-top: 1px;
+}
+
+</style>
