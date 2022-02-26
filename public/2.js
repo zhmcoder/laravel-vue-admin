@@ -71,6 +71,12 @@ __webpack_require__.r(__webpack_exports__);
       _this.editor.create();
 
       _this.editor.txt.html(_this.defaultValue);
+
+      console.log('获取value====', _this.value);
+
+      if (_this.value) {
+        _this.editor && _this.editor.txt.html(_this.value);
+      }
     }); //编辑数据加载完毕设置编辑器的值
 
     this.$bus.on("EditDataLoadingCompleted", function () {

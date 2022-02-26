@@ -1,5 +1,6 @@
 <template>
   <mavon-editor
+      ref=md
       :style="attrs.style"
       :class="attrs.className"
       v-model="content"
@@ -24,6 +25,7 @@
       :html="attrs.html"
       :toolbars="attrs.toolbars"
       @change="onChange"
+      @imgAdd="$imgAdd"
 
   />
 </template>
@@ -57,6 +59,31 @@
 			onChange(value, render) {
 				console.log('content');
 				this.$emit("change", value);
+			},
+			// 绑定@imgAdd event
+			$imgAdd(pos, $file){
+				// 第一步.将图片上传到服务器
+        console.log('image url:'+this.attrs.imageUploadUrl);
+				var formdata = new FormData();
+				formdata.append('file', $file);
+				// this.$http.post('/user?ID=12345')
+				// 	.then(function (response) {
+				// 		console.log(response);
+				// 	})
+				// 	.catch(function (error) {
+				// 		console.log(error);
+				// 	});
+				this.axios({
+					url: this.attrs.imageUploadUrl,
+					method: 'post',
+					data: formdata,
+					headers: { 'Content-Type': 'multipart/form-data' },
+				}).then((respose) => {
+					if(respose.code ==200){
+						let data = respose.data;
+						this.$refs.md.$img2Url(pos, data.url);
+          }
+				})
 			}
 		}
 	};

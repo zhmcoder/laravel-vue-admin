@@ -32,11 +32,14 @@ class Markdown extends Component
 
     protected $toolbars;
 
+    protected $imageUploadUrl;
+
 
     public function __construct($value = null)
     {
         $this->componentValue($value);
         $this->toolbars = config('admin.markdown_toolbars');
+        $this->imageUploadUrl = route(config('admin.upload.file_handle_router', 'admin.handle-upload-file'));
     }
 
     public static function make($value = "")
@@ -162,6 +165,12 @@ class Markdown extends Component
     public function html($html)
     {
         $this->html = $html;
+        return $this;
+    }
+
+    public function imageUploadUrl($imageUploadUrl)
+    {
+        $this->imageUploadUrl = $imageUploadUrl;
         return $this;
     }
 
