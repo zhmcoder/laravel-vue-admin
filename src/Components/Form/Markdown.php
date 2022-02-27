@@ -33,6 +33,7 @@ class Markdown extends Component
     protected $toolbars;
 
     protected $imageUploadUrl;
+    protected $showCustomTools = false;
 
 
     public function __construct($value = null)
@@ -171,6 +172,12 @@ class Markdown extends Component
     public function imageUploadUrl($imageUploadUrl)
     {
         $this->imageUploadUrl = $imageUploadUrl;
+        return $this;
+    }
+
+    public function showCustomTools($showCustomTools)
+    {
+        $this->showCustomTools = $showCustomTools;
         return $this;
     }
 
