@@ -31,7 +31,7 @@
           :disabled="attrs.attrs.disabled"
       >
         <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'"
-                   :tab-position="attrs.attrs.hideTab ? null : attrs.attrs.tabPosition " 
+                   :tab-position="attrs.attrs.hideTab ? null : attrs.attrs.tabPosition "
                    v-model="activeName"
                    @tab-click="handleClick">
           <component
@@ -105,7 +105,7 @@
                   />
                 </ItemIf>
               </template>
-            </template>    
+            </template>
           </component>
         </component>
         <component
@@ -213,6 +213,11 @@
 					"prop"
 				);
 			},
+            actionUrl() {
+                const keys = this.$store.getters.thisPage.grids.selectionKeys;
+
+                return this._.replace(this.attrs.action, "selectionKeys", keys);
+            },
 		},
 		data() {
 			return {
@@ -372,7 +377,7 @@
 						const formatData = this._.pick(this.formData, this.ignoreKey);
 						if (this.isEdit) {
 							this.$http
-								.put(this.attrs.action, formatData)
+								.put(this.actionUrl, formatData)
 								.then(({data, code, message}) => {
 									if (code == 200) {
 										if (this.attrs.attrs.isDialog) {
