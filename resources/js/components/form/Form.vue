@@ -200,6 +200,7 @@
 		},
 		props: {
 			attrs: Object,
+            keys: String,
 		},
 		computed: {
 			isEdit() {
@@ -393,7 +394,7 @@
 								});
 						} else {
 							this.$http
-								.post(this.attrs.action, formatData)
+								.post(this.actionUrl, formatData)
 								.then(({data, code, message}) => {
 									if (code == 200) {
 										if (this.attrs.attrs.isDialog) {
