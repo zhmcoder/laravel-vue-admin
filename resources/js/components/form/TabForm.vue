@@ -429,5 +429,11 @@
         .form-item-help {
             color: #999;
         }
+
+        .is-left {
+            max-height: calc(100vh - 250px);
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
     }
 </style>
